@@ -1,0 +1,82 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "beim-koa-start",
+        "scope": null,
+        "escapedName": "beim-koa-start",
+        "name": "beim-koa-start",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/beim/usr/work/byyl"
+    ]
+  ],
+  "_from": "beim-koa-start@latest",
+  "_id": "beim-koa-start@1.0.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/beim-koa-start",
+  "_nodeVersion": "6.3.1",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/beim-koa-start-1.0.0.tgz_1472380913315_0.5285877578426152"
+  },
+  "_npmUser": {
+    "name": "beim",
+    "email": "beim2015@outlook.com"
+  },
+  "_npmVersion": "3.10.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "beim-koa-start",
+    "scope": null,
+    "escapedName": "beim-koa-start",
+    "name": "beim-koa-start",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/beim-koa-start/-/beim-koa-start-1.0.0.tgz",
+  "_shasum": "121020d328dec5ba0aa12a4ec529d356d7041b4f",
+  "_shrinkwrap": null,
+  "_spec": "beim-koa-start",
+  "_where": "/home/beim/usr/work/byyl",
+  "author": "",
+  "dependencies": {
+    "koa": "^1.2.1",
+    "koa-bodyparser": "^2.2.0",
+    "koa-json": "^1.1.3",
+    "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0",
+    "path": "^0.12.7"
+  },
+  "description": "",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "121020d328dec5ba0aa12a4ec529d356d7041b4f",
+    "tarball": "https://registry.npmjs.org/beim-koa-start/-/beim-koa-start-1.0.0.tgz"
+  },
+  "license": "ISC",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "beim",
+      "email": "beim2015@outlook.com"
+    }
+  ],
+  "name": "beim-koa-start",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "scripts": {
+    "start": "node bin/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+}

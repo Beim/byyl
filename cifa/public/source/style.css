@@ -1,0 +1,32 @@
+.fileInput {
+    display: none;
+}
+
+.part1 {
+    margin-top: 3%;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: row;
+}
+
+.part1-inputarea {
+    width: 100%;
+}
+
+.part1-buttonarea {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.part1-buttonarea button {
+    width: 40%;
+    margin: 10px;
+}
+
+.input-textarea {
+    width: 100%;
+    height: 300px;
+}

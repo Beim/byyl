@@ -1,0 +1,100 @@
+  1    delim   [ \t\n]
+  2    ws  {delim}+
+  3    if  ----------------关键字-------------
+  4    else
+  5    while
+  6    auto
+  7    double
+  8    int
+  9    struct
+ 10    break
+ 11    long
+ 12    switch
+ 13    case
+ 14    enum
+ 15    register
+ 16    typeof
+ 17    char
+ 18    extern
+ 19    return
+ 20    union
+ 21    const
+ 22    float
+ 23    short
+ 24    unsigned
+ 25    continue
+ 26    for
+ 27    signed
+ 28    void
+ 29    default
+ 30    goto
+ 31    sizeof
+ 32    volatile
+ 33    do
+ 34    static
+ 35    ++  postfixInc   --------------运算符---------------
+ 36    --  postfixDec  
+ 37    +   addition    
+ 38    -   subtraction 
+ 39    *   multiplication   
+ 40    /   division    
+ 41    %   remainder   
+ 42    <   lessThan    
+ 43    <=  lessThanOrEqual 
+ 44    >   greaterThan 
+ 45    >=  greaterThanOrEqual  
+ 46    ==  equal   
+ 47    !=  notEqual 
+ 48    &   bitwiseAnd  
+ 49    ^   bitwiseXor  
+ 50    |   bitwiseOr   
+ 51    ~   bitwiseNot  
+ 52    <<  bitwiseLeftShift    
+ 53    >>  bitwiseRightShift   
+ 54    &&  logicalAnd  
+ 55    ||  logicalOr   
+ 56    !   logicalNot  
+ 57    =   directAssign    
+ 58    +=  assignBySum 
+ 59    -=  assignByDifference  
+ 60    *=  assignByProduct 
+ 61    /=  assignByQuotient    
+ 62    %=  assignByRemainder   
+ 63    <<= assignByBitwiseRightShift   
+ 64    >>= assignByBitwiseLeftShift    
+ 65    &=  assignByBitwiseAnd  
+ 66    ^=  assignByBitwiseXor  
+ 67    |=  assignByBitwiseOr   
+ 68    ,   comma      --------------界符------------
+ 69    .   dot     
+ 70    (   leftBracket 
+ 71    )   rightBracket    
+ 72    [   leftSquareBracket   
+ 73    ]   rightSquareBracket  
+ 74    {   leftBrace  
+ 75    }   rightBrace  
+ 76    ;   semicolon   
+ 77    digit   [0-9]   -------------常数-----------
+ 78    letter  [A-Za-z]
+ 79    int8    0[0-7]+
+ 80    int10   [0-9]+(E[+-]?[[0-9]*)?
+ 81    int16   0[x|X][0-9a-f]+
+ 82    constFloat   {digit}+\.{digit}+(E[+-]?{digit}+)?
+ 83    constChar   '[{digit}|{letter}|{delim}]?'
+ 84    constString "[{digit}|{letter}|{delim}]*"
+ 85    id      [_|{letter}][_|{digit}|{letter}]*   ----------标识符------------------
+ 86    \n  LF    ----------转义字符
+ 87    \t  HT  
+ 88    \b  BS  
+ 89    \r  CR  
+ 90    \a  BEL 
+ 91    \f  FF  
+ 92    \v  VT  
+ 93    \0  NULL    
+ 94    singleNote    //.*\n   ---------注释---------------
+ 95    multiNote   /\*((\*[^/])|[^*])*\*/
+ 96    badNum  ({digit}+{letter}+({digit}|{letter})*)|(0[0-7]*[89A-Za-z]+)     --------错误------------------
+ 97    badNote /\*((\*[^/])|[^*])*
+ 98    badConstChar    '[{digit}|{letter}][{digit}|{letter}]+'
+ 99    badEscape   \({letter}|{digit})
+100    
