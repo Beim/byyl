@@ -132,7 +132,7 @@ const App = rcc({
         let arr = []
         let odd = true
         for (let item of res) {
-            if (item.type === '1') continue
+            if (item.type === '1' || item.type === '2') continue
             let cls = ''
             if (item.msg) cls = 'error'
             if (odd) cls += ' pure-table-odd'

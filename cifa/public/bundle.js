@@ -202,7 +202,7 @@
 	            for (var _iterator = res[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	                var item = _step.value;
 
-	                if (item.type === '1') continue;
+	                if (item.type === '1' || item.type === '2') continue;
 	                var cls = '';
 	                if (item.msg) cls = 'error';
 	                if (odd) cls += ' pure-table-odd';

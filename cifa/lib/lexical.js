@@ -4,7 +4,8 @@ const transResToStr = (resArr, msgArr) => {
     let returnRes = ``
     let returnMsg = ``
     for (let i of resArr) {
-        if (i.type === '1' || i.type === '2') i.buffArr = [' ']
+        // 略过空格和换行
+        if (i.type === '1' || i.type === '2') continue // i.buffArr = [' ']
         returnRes += `${i.buffArr.join('')}  <  ${i.type},  ${i.begin},  ${i.end}, ${i.line}  >\n`
         print(`${i.buffArr.join('')}  <  ${i.type},  ${i.begin},  ${i.end}, ${i.line}  >\n`)
     }
