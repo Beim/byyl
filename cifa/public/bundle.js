@@ -83,10 +83,34 @@
 	    document.body.insertBefore(newItem, document.body.firstChild);
 	};
 
+	/**
+	 * 根据DFA配置文件, 返回显示在页面上的DFA表
+	 */
+	var transObjDFAToStr = function transObjDFAToStr(config) {
+	    var ac = JSON.parse(config);
+	    ac = ac.accept;
+	    var DFAStr = '';
+	    for (var item in ac) {
+	        DFAStr += 'DFA ' + item + ': \n';
+	        for (var bodyItem in ac[item].body) {
+	            DFAStr += '\tstate ' + bodyItem + ': \n';
+	            for (var stateItem in ac[item].body[bodyItem]) {
+	                var tempState = ac[item].body[bodyItem][stateItem];
+	                if (stateItem === '\n') stateItem = '\\n';
+	                DFAStr += '\t\tchar=' + stateItem + ', state=' + tempState + '\n';
+	            }
+	        }
+	        DFAStr += '\n';
+	    }
+	    return DFAStr;
+	};
+
 	var App = rcc({
 	    getInitialState: function getInitialState() {
 	        return {
-	            config: {},
+	            config: '',
+	            DFA: '',
+	            shouldDFAShow: false,
 	            source: '',
 	            lexicalCompiled: '',
 	            lexicalRes: {},
@@ -100,6 +124,7 @@
 
 	    /**
 	     * load config file to this.state.config 
+	     * set this.state.DFA
 	     */
 	    loadConfig: function loadConfig(e) {
 	        var _this = this;
@@ -108,13 +133,19 @@
 	        var reader = new FileReader();
 	        reader.onload = function (e) {
 	            var config = e.target.result;
-	            _this.setState({ config: config });
+	            var DFA = transObjDFAToStr(config);
+	            _this.setState({ config: config, DFA: DFA });
 	        };
 	        reader.readAsText(file);
 	    },
 	    clickSourceDiv: function clickSourceDiv() {
 	        document.getElementById('sourceFileInput').click();
 	    },
+
+
+	    /**
+	     * load source file to this.state.source
+	     */
 	    loadSource: function loadSource(e) {
 	        var _this2 = this;
 
@@ -134,6 +165,10 @@
 	    sourceChange: function sourceChange(e) {
 	        var source = e.target.value;
 	        this.setState({ source: source });
+	    },
+	    showDFA: function showDFA() {
+	        var shouldDFAShow = !this.state.shouldDFAShow;
+	        this.setState({ shouldDFAShow: shouldDFAShow });
 	    },
 
 
@@ -254,7 +289,12 @@
 	                    _react2.default.createElement(
 	                        'button',
 	                        { className: 'pure-button pure-button-primary', onClick: this.compileSource },
-	                        ' Compile '
+	                        ' Run '
+	                    ),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { className: 'pure-button pure-button-primary', onClick: this.showDFA },
+	                        ' DFA '
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -269,10 +309,19 @@
 	            ),
 	            _react2.default.createElement(
 	                'div',
+	                { className: 'part1' + (this.state.shouldDFAShow ? '' : ' hide') },
+	                _react2.default.createElement(
+	                    'form',
+	                    { className: 'pure-form whole-line' },
+	                    _react2.default.createElement('textarea', { className: 'pure-input input-textarea', value: this.state.DFA })
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
 	                { className: 'part1' },
 	                _react2.default.createElement(
 	                    'table',
-	                    { className: 'pure-table pure-table-horizontal' },
+	                    { className: 'pure-table pure-table-horizontal whole-line' },
 	                    _react2.default.createElement(
 	                        'thead',
 	                        null,
@@ -354,7 +403,7 @@
 
 
 	// module
-	exports.push([module.id, ".fileInput {\n    display: none;\n}\n\n.part1 {\n    margin: 3% 10% 50px 10%;\n    display: flex;\n    flex-direction: row;\n}\n\n.part1-inputarea {\n    width: 100%;\n}\n\n.part1-buttonarea {\n    width: 50%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n\n.part1-buttonarea button {\n    width: 40%;\n    margin: 10px;\n}\n\n.input-textarea {\n    width: 100%;\n    height: 300px;\n}\n\n.error {\n    color: red;\n}\n\n.part1 .pure-table {\n    width: 100%;\n}\n", ""]);
+	exports.push([module.id, ".fileInput {\n    display: none;\n}\n\n.part1 {\n    margin: 3% 10% 50px 10%;\n    display: flex;\n    flex-direction: row;\n}\n\n.part1-inputarea {\n    width: 100%;\n}\n\n.part1-buttonarea {\n    width: 50%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n\n.part1-buttonarea button {\n    width: 40%;\n    margin: 10px;\n}\n\n.input-textarea {\n    width: 100%;\n    height: 300px;\n}\n\n.error {\n    color: red;\n}\n\n.hide {\n    display: none;\n}\n\n.whole-line {\n    width: 100%;\n}\n\n", ""]);
 
 	// exports
 

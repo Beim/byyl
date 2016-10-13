@@ -33,6 +33,11 @@
     color: red;
 }
 
-.part1 .pure-table {
+.hide {
+    display: none;
+}
+
+.whole-line {
     width: 100%;
 }
+

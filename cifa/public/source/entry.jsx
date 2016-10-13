@@ -25,10 +25,34 @@ const insertScript = (config) => {
     document.body.insertBefore(newItem, document.body.firstChild)
 }
 
+/**
+ * 根据DFA配置文件, 返回显示在页面上的DFA表
+ */
+const transObjDFAToStr = (config) => {
+    let ac = JSON.parse(config)
+    ac = ac.accept
+    let DFAStr = ''
+    for (let item in ac) {
+        DFAStr += `DFA ${item}: \n`
+        for (let bodyItem in ac[item].body) {
+            DFAStr += `\tstate ${bodyItem}: \n`
+            for (let stateItem in ac[item].body[bodyItem]) {
+                let tempState = ac[item].body[bodyItem][stateItem]
+                if (stateItem === '\n') stateItem = '\\n'
+                DFAStr += `\t\tchar=${stateItem}, state=${tempState}\n`
+            }
+        }
+        DFAStr += '\n'
+    }
+    return DFAStr
+}
+
 const App = rcc({
     getInitialState() {
         return {
-            config: {},
+            config: '',
+            DFA: '',
+            shouldDFAShow: false,
             source: '',
             lexicalCompiled: '',
             lexicalRes: {},
@@ -42,13 +66,15 @@ const App = rcc({
 
     /**
      * load config file to this.state.config 
+     * set this.state.DFA
      */
     loadConfig(e) {
         let file = document.getElementById('configFileInput').files[0]
         let reader = new FileReader()
         reader.onload = (e) => {
             let config = e.target.result
-            this.setState({config})
+            let DFA = transObjDFAToStr(config)
+            this.setState({config, DFA})
         }
         reader.readAsText(file)
     },
@@ -57,6 +83,9 @@ const App = rcc({
         document.getElementById('sourceFileInput').click()
     },
 
+    /**
+     * load source file to this.state.source
+     */
     loadSource(e) {
         let file = document.getElementById('sourceFileInput').files[0]
         let reader = new FileReader()
@@ -73,6 +102,11 @@ const App = rcc({
     sourceChange(e) {
         let source = e.target.value
         this.setState({source})
+    },
+
+    showDFA() {
+        let shouldDFAShow = !this.state.shouldDFAShow
+        this.setState({shouldDFAShow})
     },
 
     /**
@@ -131,7 +165,8 @@ const App = rcc({
                     <div className="part1-buttonarea">
                         <button className="pure-button pure-button-primary" onClick={this.clickConfigDiv}> Config </button>
                         <button className="pure-button pure-button-primary" onClick={this.clickSourceDiv}> Source </button>
-                        <button className="pure-button pure-button-primary" onClick={this.compileSource}> Compile </button>
+                        <button className="pure-button pure-button-primary" onClick={this.compileSource}> Run </button>
+                        <button className="pure-button pure-button-primary" onClick={this.showDFA}> DFA </button>
                     </div>
                     <div className="part1-inputarea">
                         <form className="pure-form">
@@ -139,8 +174,13 @@ const App = rcc({
                         </form>
                     </div>
                 </div>
+                <div className={'part1' + (this.state.shouldDFAShow ? '' : ' hide')}>
+                    <form className='pure-form whole-line'>
+                        <textarea className='pure-input input-textarea' value={this.state.DFA}></textarea>
+                    </form>
+                </div>
                 <div className='part1'>
-                    <table className="pure-table pure-table-horizontal">
+                    <table className="pure-table pure-table-horizontal whole-line">
                         <thead>
                             <tr>
                                 <th>行</th>
