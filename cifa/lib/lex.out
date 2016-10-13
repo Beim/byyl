@@ -1,5 +1,6 @@
-  1    delim   [ \t\n]
-  2    ws  {delim}+
+  1    blank[ \t]+
+#  2    ws  [ \t\n]+
+  2    newline  \n
   3    if  ----------------关键字-------------
   4    else
   5    while
@@ -93,8 +94,7 @@
  93    \0  NULL    
  94    singleNote    //.*\n   ---------注释---------------
  95    multiNote   /\*((\*[^/])|[^*])*\*/
- 96    badNum  ({digit}+{letter}+({digit}|{letter})*)|(0[0-7]*[89A-Za-z]+)     --------错误------------------
+ # 96    badNum  ({digit}+{letter}({digit}|{letter})*)|(0[0-7]*[89A-Za-z]+)     --------错误------------------
+ 96    badNum  {digit}+{letter}({digit}|{letter})*
  97    badNote /\*((\*[^/])|[^*])*
  98    badConstChar    '[{digit}|{letter}][{digit}|{letter}]+'
- 99    badEscape   \({letter}|{digit})
-100    

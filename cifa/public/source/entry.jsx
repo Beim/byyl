@@ -31,6 +31,7 @@ const App = rcc({
             config: {},
             source: '',
             lexicalCompiled: '',
+            lexicalRes: {},
             message: ''
         }
     },
@@ -85,9 +86,35 @@ const App = rcc({
         util.fetch('POST', '/lex', data).then((res) => {
             print(res)
             this.setState({
-                lexicalCompiled: res.returnRes
+                lexicalCompiled: res.returnRes,
+                lexicalRes: res
             })
         })
+    },
+
+    transResToTable(res) {
+        if (res.allArr) res = res.allArr
+        else return []
+        let arr = []
+        let odd = true
+        for (let item of res) {
+            if (item.type === '1') continue
+            let cls = ''
+            if (item.msg) cls = 'error'
+            if (odd) cls += ' pure-table-odd'
+            odd = !odd
+            let tr = (
+                <tr className={cls} key={'transTr' + item.begin}>
+                    <td>{item.line}</td>
+                    <td>{item.buffArr.join('')}</td>
+                    <td>{item.type}</td>
+                    <td>{item.begin}</td>
+                    <td>{item.end}</td>
+                </tr>
+            )
+            arr.push(tr)
+        }
+        return arr
     },
 
     render() {
@@ -111,6 +138,22 @@ const App = rcc({
                             <textarea className="pure-input input-textarea" value={this.state.lexicalCompiled}></textarea>    
                         </form>
                     </div>
+                </div>
+                <div className='part1'>
+                    <table className="pure-table pure-table-horizontal">
+                        <thead>
+                            <tr>
+                                <th>行</th>
+                                <th>字符串</th>
+                                <th>类型</th>
+                                <th>开始位置</th>
+                                <th>结束位置</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.transResToTable(this.state.lexicalRes)}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         )

@@ -18,7 +18,7 @@ const read = (path) => {
 let fpath = path.resolve(__dirname, 'config')
 
 const DFA = path.resolve(__dirname, './DFAtable2.json')
-const SOURCE = path.resolve(__dirname, 'source.c')
+const SOURCE = path.resolve(__dirname, 'source1.c')
 
 read(DFA).then((config) => {
     read(SOURCE).then((source) => {

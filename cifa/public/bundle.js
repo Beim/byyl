@@ -89,6 +89,7 @@
 	            config: {},
 	            source: '',
 	            lexicalCompiled: '',
+	            lexicalRes: {},
 	            message: ''
 	        };
 	    },
@@ -149,9 +150,75 @@
 	        _util2.default.fetch('POST', '/lex', data).then(function (res) {
 	            print(res);
 	            _this3.setState({
-	                lexicalCompiled: res.returnRes
+	                lexicalCompiled: res.returnRes,
+	                lexicalRes: res
 	            });
 	        });
+	    },
+	    transResToTable: function transResToTable(res) {
+	        if (res.allArr) res = res.allArr;else return [];
+	        var arr = [];
+	        var odd = true;
+	        var _iteratorNormalCompletion = true;
+	        var _didIteratorError = false;
+	        var _iteratorError = undefined;
+
+	        try {
+	            for (var _iterator = res[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                var item = _step.value;
+
+	                if (item.type === '1') continue;
+	                var cls = '';
+	                if (item.msg) cls = 'error';
+	                if (odd) cls += ' pure-table-odd';
+	                odd = !odd;
+	                var tr = _react2.default.createElement(
+	                    'tr',
+	                    { className: cls, key: 'transTr' + item.begin },
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        item.line
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        item.buffArr.join('')
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        item.type
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        item.begin
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        item.end
+	                    )
+	                );
+	                arr.push(tr);
+	            }
+	        } catch (err) {
+	            _didIteratorError = true;
+	            _iteratorError = err;
+	        } finally {
+	            try {
+	                if (!_iteratorNormalCompletion && _iterator.return) {
+	                    _iterator.return();
+	                }
+	            } finally {
+	                if (_didIteratorError) {
+	                    throw _iteratorError;
+	                }
+	            }
+	        }
+
+	        return arr;
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -199,6 +266,52 @@
 	                        _react2.default.createElement('textarea', { className: 'pure-input input-textarea', value: this.state.lexicalCompiled })
 	                    )
 	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'part1' },
+	                _react2.default.createElement(
+	                    'table',
+	                    { className: 'pure-table pure-table-horizontal' },
+	                    _react2.default.createElement(
+	                        'thead',
+	                        null,
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '行'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '字符串'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '类型'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '开始位置'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '结束位置'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tbody',
+	                        null,
+	                        this.transResToTable(this.state.lexicalRes)
+	                    )
+	                )
 	            )
 	        );
 	    }
@@ -241,7 +354,7 @@
 
 
 	// module
-	exports.push([module.id, ".fileInput {\n    display: none;\n}\n\n.part1 {\n    margin-top: 3%;\n    margin-left: 10%;\n    margin-right: 10%;\n    display: flex;\n    flex-direction: row;\n}\n\n.part1-inputarea {\n    width: 100%;\n}\n\n.part1-buttonarea {\n    width: 50%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n\n.part1-buttonarea button {\n    width: 40%;\n    margin: 10px;\n}\n\n.input-textarea {\n    width: 100%;\n    height: 300px;\n}\n", ""]);
+	exports.push([module.id, ".fileInput {\n    display: none;\n}\n\n.part1 {\n    margin: 3% 10% 50px 10%;\n    display: flex;\n    flex-direction: row;\n}\n\n.part1-inputarea {\n    width: 100%;\n}\n\n.part1-buttonarea {\n    width: 50%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n\n.part1-buttonarea button {\n    width: 40%;\n    margin: 10px;\n}\n\n.input-textarea {\n    width: 100%;\n    height: 300px;\n}\n\n.error {\n    color: red;\n}\n\n.part1 .pure-table {\n    width: 100%;\n}\n", ""]);
 
 	// exports
 

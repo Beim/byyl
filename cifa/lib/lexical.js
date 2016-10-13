@@ -1,5 +1,22 @@
 const print = console.log.bind()
 
+const transResToStr = (resArr, msgArr) => {
+    let returnRes = ``
+    let returnMsg = ``
+    for (let i of resArr) {
+        if (i.type === '1' || i.type === '2') i.buffArr = [' ']
+        returnRes += `${i.buffArr.join('')}  <  ${i.type},  ${i.begin},  ${i.end}, ${i.line}  >\n`
+        print(`${i.buffArr.join('')}  <  ${i.type},  ${i.begin},  ${i.end}, ${i.line}  >\n`)
+    }
+    print('-----分界线-----')
+    for (let i of msgArr) {
+        if (i.type === '1' || i.type === '2') i.buffArr = [' ']
+        returnRes += `${i.buffArr.join('')}  <  ${i.type},  ${i.begin},  ${i.end}, ${i.line}  >\n`
+        print(`${i.buffArr.join('')}  <  ${i.type},  ${i.begin},  ${i.end}, ${i.line}  >\n`)
+    }
+    return [returnRes, returnMsg]
+}
+
 /** 
  * move to the next state
  * @param config Object
@@ -30,7 +47,7 @@ const ifTypeMatch = (config, type, buffArr) => {
                     type
                 }
             } else {
-                if (type === '2') buffArr = ['\\n']
+                // if (type === '2') buffArr = ['\\n']
                 return {
                     flag: 0,
                     res: `<${type}, ${buffArr.join('')}>`,
@@ -61,10 +78,12 @@ const ifTypeMatch = (config, type, buffArr) => {
 const ifMatch = (config, buffArr) => {
     let flag = -1
     let result = {}
+    // 按类型优先级顺序遍历匹配
     for (let type of config.priority) {
         if (!config.accept[type]) {
             throw `配置文件错误, 缺少"${type}" 的DFA`
         }
+        // 以当前类型和相应配置进行匹配
         let matchResult = ifTypeMatch(config.accept[type], type, buffArr)
         if (matchResult.flag === 0) {
             result = matchResult
@@ -85,63 +104,54 @@ const ifMatch = (config, buffArr) => {
 
 const lexicalCompile = (config, source) => {
     config = JSON.parse(config)
-    let sourceArr = source.split('')
-    let [resArr, msgArr] = [[], []]
-    let lexicalBegin = 0
+    let sourceArr = source.split('') // 将被分析的字符串切分为字符数组
+    let line = 0 // 记录行数
+    let [resArr, msgArr, allArr] = [[], [], []] // resArr 为分析正确的信息, msgArr 为分析错误的信息, allArr 为全部的原始信息
+    let lexicalBegin = 0 // 设置词法分析的开始位置0
     while (lexicalBegin < sourceArr.length) {
+        let tempRes = {} // 记录分析正确或错误的信息, 只记录最长匹配的信息
+        // 以lexicalBegin 位置为开始位置, 向前读取字符并匹配
         let lexicalForward = lexicalBegin
-        let tempRes = {}
         while (lexicalForward < source.length) {
+            // 取得尝试匹配的字符串数组, 范围[lexicalBegin, lexicalForward]
             let buffArr = sourceArr.slice(lexicalBegin, lexicalForward)
             buffArr.push(sourceArr[lexicalForward])
+            // 传入配置和字符串数组, 获得匹配结果
             let matchRes = ifMatch(config, buffArr)
-            if (matchRes.flag === 0) {
+            if (matchRes.flag === 0) { // 匹配成功, 继续向前寻找更长的串
                 tempRes = matchRes
-                tempRes.forward = lexicalForward
+                tempRes.end = lexicalForward
                 lexicalForward += 1
-            } else if (matchRes.flag === 1) {
+            } else if (matchRes.flag === 1) { // 匹配不成功, 但是读取更长的串可能成功, 继续向前看
                 lexicalForward += 1
-            } else {
+            } else { // 匹配失败, 且不能匹配到更长的串
                 break;
             }
         }
-        let  [res, msg, forward] = [tempRes.res, tempRes.msg, tempRes.forward]
-        if (tempRes.res) resArr.push({
-            res: tempRes.res,
-            type: tempRes.type,
-            buffArr: tempRes.buffArr,
-            begin: lexicalBegin,
-            end: tempRes.forward
-        })
-        if (tempRes.msg) msgArr.push({
-            msg: tempRes.res,
-            type: tempRes.type,
-            buffArr: tempRes.buffArr,
-            begin: lexicalBegin,
-            end: tempRes.forward
-        })
-        if (forward !== undefined) lexicalBegin = forward + 1
-        else throw '配置文件错误: 未匹配'
+        // 匹配到类型2, 即换行符, 将行数加一
+        if (tempRes.type === "2") 
+            ++line;
+        tempRes.line = line
+        tempRes.begin = lexicalBegin
+        // 保存当前匹配信息
+        allArr.push(tempRes)
+        if (tempRes.msg)
+            msgArr.push(tempRes)
+        else 
+            resArr.push(tempRes)
+        // 若end 存在则将begin 前移 , 否则表示出现预料之外的匹配错误
+        if (tempRes.end !== undefined) 
+            lexicalBegin = tempRes.end + 1
+        else 
+            throw '配置文件错误: 未匹配'
     }
 
-    let returnRes = ``
-    let returnMsg = ``
-    for (let i of resArr) {
-        if (i.type === '2') i.buffArr = [' ']
-        returnRes += `<    ${i.buffArr.join('')},    ${i.type},    ${i.begin},   ${i.end}    >\n\n`
-        print(`<    ${i.buffArr.join('')},    ${i.type},    ${i.begin},   ${i.end}    >\n`)
-    }
-    for (let i of msgArr) {
-        if (i.type === '2') i.buffArr = [' ']
-        returnRes += `<    ${i.buffArr.join('')},    ${i.type},    ${i.begin},   ${i.end}    >\n\n`
-        print(`<    ${i.buffArr.join('')},    ${i.type},    ${i.begin},   ${i.end}    >\n`)
-    }
-    return {returnRes, returnMsg}
+    let [returnRes, returnMsg] = transResToStr(resArr, msgArr)
+    return {returnRes, returnMsg, resArr, msgArr, allArr}
 }
 
 module.exports = {
     lexicalCompile,
-    ifMatch
 }
 
 // const insertScript = (config) => {
