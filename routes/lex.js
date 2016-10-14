@@ -1,6 +1,6 @@
 const router = require('koa-router')()
 const path = require('path')
-const lexicalCompile = require(path.resolve(__dirname, '../lib/lexical.js')).lexicalCompile
+const lexicalCompile = require(path.resolve(__dirname, '../lib/cifa/lexical.js')).lexicalCompile
 
 router.get('/', function *(next) {
     this.body = 'Hello World@'
