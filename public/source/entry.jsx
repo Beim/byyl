@@ -142,6 +142,7 @@ const App = rcc({
                     <td>{item.line}</td>
                     <td>{item.buffArr.join('')}</td>
                     <td>{item.type}</td>
+                    <td>{item.info}</td>
                     <td>{item.begin}</td>
                     <td>{item.end}</td>
                 </tr>
@@ -186,6 +187,7 @@ const App = rcc({
                                 <th>行</th>
                                 <th>字符串</th>
                                 <th>类型</th>
+                                <th>类型信息</th>
                                 <th>开始位置</th>
                                 <th>结束位置</th>
                             </tr>

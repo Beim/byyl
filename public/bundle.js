@@ -228,6 +228,11 @@
 	                    _react2.default.createElement(
 	                        'td',
 	                        null,
+	                        item.info
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
 	                        item.begin
 	                    ),
 	                    _react2.default.createElement(
@@ -342,6 +347,11 @@
 	                                'th',
 	                                null,
 	                                '类型'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '类型信息'
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',

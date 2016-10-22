@@ -1,5 +1,7 @@
 
-class Solution {
+void Solution() {
+    int wrongNum = 123abc;
+    char wrongChar = '1a';
     int num;
     int maxDepth(TreeNode* root) {
         if (!root) return 0;

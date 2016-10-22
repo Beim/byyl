@@ -1,6 +1,4 @@
-test
-0123
-0123a
-'12'
-1.234
-1234
+
+void Solution() {
+    int wrongNum = 123abc;
+    char wrongChar = '1a';
