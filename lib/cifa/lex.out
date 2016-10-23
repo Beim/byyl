@@ -75,6 +75,9 @@
  74    {   leftBrace  
  75    }   rightBrace  
  76    ;   semicolon   
+ 99    @
+ 100   "
+ 101   '
  77    digit   [0-9]   -------------常数-----------
  78    letter  [A-Za-z]
  79    int8    0[0-7]+
@@ -98,3 +101,8 @@
  96    badNum  {digit}+{letter}({digit}|{letter})*
  97    badNote /\*((\*[^/])|[^*])*
  98    badConstChar    '[{digit}|{letter}][{digit}|{letter}]+'
+ 102   badId  [_|{letter}|{num}]+[^_{letter}{num}]+(.*)
+ 103   数组  [{num}]+
+
+ 
+ max: 103
