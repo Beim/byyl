@@ -33,6 +33,7 @@
  32    volatile
  33    do
  34    static
+ 104   proc
  35    ++  postfixInc   --------------运算符---------------
  36    --  postfixDec  
  37    +   addition    
@@ -102,7 +103,7 @@
  97    badNote /\*((\*[^/])|[^*])*
  98    badConstChar    '[{digit}|{letter}][{digit}|{letter}]+'
  102   badId  [_|{letter}|{num}]+[^_{letter}{num}]+(.*)
- 103   数组  [{num}]+
+ # 103   数组  [{num}]+
 
  
- max: 103
+ max: 104
