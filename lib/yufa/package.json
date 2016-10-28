@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "nyc ava -v"
+    "test": "nyc ava -v ./util/test.js"
   },
   "author": "",
   "license": "ISC",
