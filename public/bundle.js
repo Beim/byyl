@@ -110,10 +110,13 @@
 	        return {
 	            config: '',
 	            DFA: '',
-	            shouldDFAShow: false,
+	            shouldLexShow: false,
+	            shouldGramShow: true,
+	            gramTreeAllShow: true,
 	            source: '',
 	            lexicalCompiled: '',
 	            lexicalRes: {},
+	            gramRes: {},
 	            message: ''
 	        };
 	    },
@@ -166,9 +169,13 @@
 	        var source = e.target.value;
 	        this.setState({ source: source });
 	    },
-	    showDFA: function showDFA() {
-	        var shouldDFAShow = !this.state.shouldDFAShow;
-	        this.setState({ shouldDFAShow: shouldDFAShow });
+	    showLex: function showLex() {
+	        var shouldLexShow = !this.state.shouldLexShow;
+	        this.setState({ shouldLexShow: shouldLexShow });
+	    },
+	    showGram: function showGram() {
+	        var shouldGramShow = !this.state.shouldGramShow;
+	        this.setState({ shouldGramShow: shouldGramShow });
 	    },
 
 
@@ -182,15 +189,31 @@
 	            config: this.state.config,
 	            source: this.state.source
 	        };
-	        _util2.default.fetch('POST', '/lex', data).then(function (res) {
-	            print(res);
-	            _this3.setState({
+	        /*
+	         * 词法分析阶段的请求
+	         *
+	        util.fetch('POST', '/lex', data).then((res) => {
+	            this.setState({
 	                lexicalCompiled: res.returnRes,
 	                lexicalRes: res
+	            })
+	        })
+	        */
+	        /*
+	         * 语法分析阶段的请求
+	         */
+	        _util2.default.fetch('POST', '/gram', data).then(function (_ref) {
+	            var lexRes = _ref.lexRes;
+	            var gramRes = _ref.gramRes;
+
+	            _this3.setState({
+	                lexicalCompiled: lexRes.returnRes,
+	                lexicalRes: lexRes,
+	                gramRes: gramRes
 	            });
 	        });
 	    },
-	    transResToTable: function transResToTable(res) {
+	    transResToTable_lex: function transResToTable_lex(res) {
 	        if (res.allArr) res = res.allArr;else return [];
 	        var arr = [];
 	        var odd = true;
@@ -260,7 +283,164 @@
 
 	        return arr;
 	    },
+	    transResToTable_gram: function transResToTable_gram(res) {
+	        if (!res) return [];
+	        var gramTreeAllShow = this.state.gramTreeAllShow ? 'in' : '';
+	        var stack = [{ root: res, visited: false, level: 1 }];
+	        var path = [];
+	        var key = 0;
+	        while (stack.length > 0) {
+	            var _stack$pop = stack.pop();
+
+	            var root = _stack$pop.root;
+	            var visited = _stack$pop.visited;
+	            var level = _stack$pop.level;
+
+	            if (!root) continue;
+	            if (visited) {
+	                print('visit ' + root.typeName + ', ' + level);
+	                var obj = {
+	                    level: level,
+	                    key: key++,
+	                    name: root.typeName,
+	                    line: root.line,
+	                    isTerminator: root.isTerminator
+	                };
+	                if (root.lexical) obj.lexical = root.lexical;
+	                if (root.index) obj.index = root.index;
+	                path.push(obj);
+	            } else {
+	                stack.push({
+	                    root: root,
+	                    visited: true,
+	                    level: level
+	                });
+	                if (root.next && !root.isTerminator) {
+	                    for (var i = root.next.length - 1; i >= 0; i--) {
+	                        stack.push({
+	                            root: root.next[i],
+	                            visited: false,
+	                            level: level + 1
+	                        });
+	                    }
+	                }
+	            }
+	        }
+	        var table = [];
+	        var s_table = [];
+	        var _iteratorNormalCompletion2 = true;
+	        var _didIteratorError2 = false;
+	        var _iteratorError2 = undefined;
+
+	        try {
+	            for (var _iterator2 = path[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	                var item = _step2.value;
+
+	                if (table.length === 0) {
+	                    s_table.push(item);
+	                    table.push(_react2.default.createElement(
+	                        'div',
+	                        { key: 'collapse-' + item.key, className: 'panel panel-default' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'panel-heading' },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { 'data-toggle': 'collapse', href: '#collapse-' + item.key },
+	                                item.name
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { id: 'collapse-' + item.key, className: 'panel-collapse collapse ' + gramTreeAllShow },
+	                            _react2.default.createElement('div', { className: 'panel-body' })
+	                        )
+	                    ));
+	                } else {
+	                    var topLevel = s_table[s_table.length - 1].level;
+	                    if (topLevel <= item.level) {
+	                        s_table.push(item);
+	                        table.push(_react2.default.createElement(
+	                            'div',
+	                            { key: 'collapse-' + item.key, className: 'panel panel-default' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'panel-heading' },
+	                                _react2.default.createElement(
+	                                    'a',
+	                                    { 'data-toggle': 'collapse', href: '#collapse-' + item.key },
+	                                    item.name
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { id: 'collapse-' + item.key, className: 'panel-collapse collapse ' + gramTreeAllShow },
+	                                _react2.default.createElement('div', { className: 'panel-body' })
+	                            )
+	                        ));
+	                    } else if (topLevel > item.level) {
+	                        var idx = void 0;
+	                        for (idx = s_table.length - 1; idx >= 0; idx--) {
+	                            print('idx: ', idx);
+	                            if (s_table[idx].level <= item.level) {
+	                                break;
+	                            }
+	                        }
+	                        idx++;
+	                        print('idxxx: ', idx);
+	                        print(JSON.stringify(s_table, null, 2));
+	                        s_table = s_table.slice(0, idx);
+	                        print('stable', item.name);
+	                        print(JSON.stringify(s_table, null, 4));
+	                        s_table.push(item);
+	                        var tempTable = table.slice(idx);
+	                        table = table.slice(0, idx);
+	                        table.push(_react2.default.createElement(
+	                            'div',
+	                            { key: 'collapse-' + item.key, className: 'panel panel-default' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'panel-heading' },
+	                                _react2.default.createElement(
+	                                    'a',
+	                                    { 'data-toggle': 'collapse', href: '#collapse-' + item.key },
+	                                    item.name
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { id: 'collapse-' + item.key, className: 'panel-collapse collapse ' + gramTreeAllShow },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'panel-body' },
+	                                    tempTable
+	                                )
+	                            )
+	                        ));
+	                    }
+	                }
+	            }
+	        } catch (err) {
+	            _didIteratorError2 = true;
+	            _iteratorError2 = err;
+	        } finally {
+	            try {
+	                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	                    _iterator2.return();
+	                }
+	            } finally {
+	                if (_didIteratorError2) {
+	                    throw _iteratorError2;
+	                }
+	            }
+	        }
+
+	        return table;
+	    },
 	    render: function render() {
+	        print(this.state.gramRes);
+	        var shouldLexShow = this.state.shouldLexShow ? '' : 'hide';
+	        var shouldGramShow = this.state.shouldGramShow ? '' : 'hide';
 	        return _react2.default.createElement(
 	            'div',
 	            null,
@@ -298,8 +478,13 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'button',
-	                        { className: 'pure-button pure-button-primary', onClick: this.showDFA },
-	                        ' DFA '
+	                        { className: 'pure-button pure-button-primary', onClick: this.showLex },
+	                        ' LEX '
+	                    ),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { className: 'pure-button pure-button-primary', onClick: this.showGram },
+	                        ' GRAM '
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -314,7 +499,7 @@
 	            ),
 	            _react2.default.createElement(
 	                'div',
-	                { className: 'part1' + (this.state.shouldDFAShow ? '' : ' hide') },
+	                { className: 'part1 ' + shouldLexShow },
 	                _react2.default.createElement(
 	                    'form',
 	                    { className: 'pure-form whole-line' },
@@ -323,7 +508,7 @@
 	            ),
 	            _react2.default.createElement(
 	                'div',
-	                { className: 'part1' },
+	                { className: 'part1 ' + shouldLexShow },
 	                _react2.default.createElement(
 	                    'table',
 	                    { className: 'pure-table pure-table-horizontal whole-line' },
@@ -368,15 +553,46 @@
 	                    _react2.default.createElement(
 	                        'tbody',
 	                        null,
-	                        this.transResToTable(this.state.lexicalRes)
+	                        this.transResToTable_lex(this.state.lexicalRes)
 	                    )
 	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'panel-group part1 ' + shouldGramShow },
+	                this.transResToTable_gram(this.state.gramRes.res)
 	            )
 	        );
 	    }
 	});
 
 	(0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById('main'));
+
+	/*
+	 *
+	                    <div className='panel panel-default'>
+	                        <div className='panel-heading'>
+	                                <a data-toggle='collapse' href='#collapse-3'>
+	                                    zhankai
+	                                </a>
+	                        </div>
+	                        <div id='collapse-3' className='panel-collapse collapse'>
+	                            <div className='panel-body'>
+	                                <div className='panel panel-default'>
+	                                    <div className='panel-heading'>
+	                                            <a data-toggle='collapse' href='#collapse-4'>
+	                                                zhankai__zai zhan kai 
+	                                            </a>
+	                                    </div>
+	                                    <div id='collapse-4' className='panel-collapse collapse'>
+	                                        <div className='panel-body'>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	*/
 
 /***/ },
 /* 1 */
@@ -413,7 +629,7 @@
 
 
 	// module
-	exports.push([module.id, ".fileInput {\n    display: none;\n}\n\n.part1 {\n    margin: 3% 10% 50px 10%;\n    display: flex;\n    flex-direction: row;\n}\n\n.part1-inputarea {\n    width: 100%;\n}\n\n.part1-buttonarea {\n    width: 50%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n\n.part1-buttonarea button {\n    width: 40%;\n    margin: 10px;\n}\n\n.input-textarea {\n    width: 100%;\n    height: 300px;\n}\n\n.error {\n    color: red;\n}\n\n.hide {\n    display: none;\n}\n\n.whole-line {\n    width: 100%;\n}\n\n", ""]);
+	exports.push([module.id, ".fileInput {\n    display: none;\n}\n\n.part1 {\n    margin: 3% 10% 50px 10%;\n    display: flex;\n    flex-direction: row;\n}\n\n.part1-inputarea {\n    width: 100%;\n}\n\n.part1-buttonarea {\n    width: 50%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n\n.part1-buttonarea button {\n    width: 40%;\n    margin: 10px;\n}\n\n.input-textarea {\n    width: 100%;\n    height: 300px;\n}\n\n.error {\n    color: red;\n}\n\n.hide {\n    display: none;\n}\n\n.whole-line {\n    width: 100%;\n}\n\n.panel-body {\n    margin-left: 15px;\n}\n\n", ""]);
 
 	// exports
 

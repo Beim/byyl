@@ -52,10 +52,13 @@ const App = rcc({
         return {
             config: '',
             DFA: '',
-            shouldDFAShow: false,
+            shouldLexShow: false,
+            shouldGramShow: true,
+            gramTreeAllShow: true,
             source: '',
             lexicalCompiled: '',
             lexicalRes: {},
+            gramRes: {},
             message: ''
         }
     },
@@ -104,9 +107,14 @@ const App = rcc({
         this.setState({source})
     },
 
-    showDFA() {
-        let shouldDFAShow = !this.state.shouldDFAShow
-        this.setState({shouldDFAShow})
+    showLex() {
+        let shouldLexShow = !this.state.shouldLexShow
+        this.setState({shouldLexShow})
+    },
+
+    showGram() {
+        let shouldGramShow = !this.state.shouldGramShow
+        this.setState({shouldGramShow})
     },
 
     /**
@@ -117,16 +125,29 @@ const App = rcc({
             config: this.state.config,
             source: this.state.source
         }
+        /*
+         * 词法分析阶段的请求
+         *
         util.fetch('POST', '/lex', data).then((res) => {
-            print(res)
             this.setState({
                 lexicalCompiled: res.returnRes,
                 lexicalRes: res
             })
         })
+        */
+        /*
+         * 语法分析阶段的请求
+         */
+        util.fetch('POST', '/gram', data).then(({lexRes, gramRes}) => {
+            this.setState({
+                lexicalCompiled: lexRes.returnRes,
+                lexicalRes: lexRes,
+                gramRes
+            })
+        })
     },
 
-    transResToTable(res) {
+    transResToTable_lex(res) {
         if (res.allArr) res = res.allArr
         else return []
         let arr = []
@@ -152,7 +173,122 @@ const App = rcc({
         return arr
     },
 
+    transResToTable_gram(res) {
+        if (!res) return []
+        let gramTreeAllShow = this.state.gramTreeAllShow ? 'in' : ''
+        let stack = [{root: res, visited: false, level: 1}]
+        let path = []
+        let key = 0
+        while (stack.length > 0) {
+            let {root, visited, level} = stack.pop()
+            if (!root) continue
+            if (visited) {
+                print(`visit ${root.typeName}, ${level}`)
+                let obj = {
+                    level,
+                    key: key++,
+                    name: root.typeName,
+                    line: root.line,
+                    isTerminator: root.isTerminator
+                }
+                if (root.lexical) obj.lexical = root.lexical
+                if (root.index) obj.index = root.index
+                path.push(obj)
+            } else {
+                stack.push({
+                    root,
+                    visited: true,
+                    level
+                })
+                if (root.next && !root.isTerminator) {
+                    for (let i = root.next.length - 1; i >= 0; i--) {
+                        stack.push({
+                            root: root.next[i],
+                            visited: false,
+                            level: level + 1
+                        })
+                    }
+                }
+            }
+        }
+        let table = []
+        let s_table = []
+        for (let item of path) {
+            if (table.length === 0) {
+                s_table.push(item)
+                table.push(
+                    <div key={`collapse-${item.key}`} className='panel panel-default'>
+                        <div className='panel-heading'>
+                                <a data-toggle='collapse' href={`#collapse-${item.key}`}>
+                                    {item.name} 
+                                </a>
+                        </div>
+                        <div id={`collapse-${item.key}`} className={'panel-collapse collapse ' + gramTreeAllShow}>
+                            <div className='panel-body'>
+                            </div>
+                        </div>
+                    </div>
+                )
+            } else {
+                let topLevel = s_table[s_table.length - 1].level
+                if (topLevel <= item.level) {
+                    s_table.push(item)
+                    table.push(
+                        <div key={`collapse-${item.key}`} className='panel panel-default'>
+                            <div className='panel-heading'>
+                                    <a data-toggle='collapse' href={`#collapse-${item.key}`}>
+                                        {item.name} 
+                                    </a>
+                            </div>
+                            <div id={`collapse-${item.key}`} className={'panel-collapse collapse ' + gramTreeAllShow}>
+                                <div className='panel-body'>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                } else if (topLevel > item.level) {
+                    let idx;
+                    for (idx = s_table.length - 1; idx >= 0; idx--) {
+                        print('idx: ', idx)
+                        if (s_table[idx].level <= item.level) {
+                            break
+                        }
+                    }
+                    idx++
+                    print('idxxx: ', idx)
+                    print(JSON.stringify(s_table, null, 2))
+                    s_table = s_table.slice(0, idx)
+                    print('stable', item.name)
+                    print(JSON.stringify(s_table, null, 4))
+                    s_table.push(item)
+                    let tempTable = table.slice(idx)
+                    table = table.slice(0, idx)
+                    table.push(
+                        <div key={`collapse-${item.key}`} className='panel panel-default'>
+                            <div className='panel-heading'>
+                                    <a data-toggle='collapse' href={`#collapse-${item.key}`}>
+                                        {item.name} 
+                                    </a>
+                            </div>
+                            <div id={`collapse-${item.key}`} className={'panel-collapse collapse ' + gramTreeAllShow}>
+                                <div className='panel-body'>
+                                    {tempTable}
+                                </div>
+                            </div>
+                        </div>
+                    )
+
+
+                }
+            }
+        }
+        return table
+    },
+
     render() {
+        print(this.state.gramRes)
+        let shouldLexShow = this.state.shouldLexShow ? '' : 'hide'
+        let shouldGramShow = this.state.shouldGramShow ? '' : 'hide'
         return (
             <div>
                 <input type="file" className="fileInput" id="configFileInput" accept=".json" onChange={this.loadConfig}></input>
@@ -167,7 +303,8 @@ const App = rcc({
                         <button className="pure-button pure-button-primary" onClick={this.clickConfigDiv}> Config </button>
                         <button className="pure-button pure-button-primary" onClick={this.clickSourceDiv}> Source </button>
                         <button className="pure-button pure-button-primary" onClick={this.compileSource}> Run </button>
-                        <button className="pure-button pure-button-primary" onClick={this.showDFA}> DFA </button>
+                        <button className="pure-button pure-button-primary" onClick={this.showLex}> LEX </button>
+                        <button className="pure-button pure-button-primary" onClick={this.showGram}> GRAM </button>
                     </div>
                     <div className="part1-inputarea">
                         <form className="pure-form">
@@ -175,12 +312,12 @@ const App = rcc({
                         </form>
                     </div>
                 </div>
-                <div className={'part1' + (this.state.shouldDFAShow ? '' : ' hide')}>
+                <div className={'part1 ' + shouldLexShow}>
                     <form className='pure-form whole-line'>
                         <textarea className='pure-input input-textarea' value={this.state.DFA}></textarea>
                     </form>
                 </div>
-                <div className='part1'>
+                <div className={'part1 ' + shouldLexShow}>
                     <table className="pure-table pure-table-horizontal whole-line">
                         <thead>
                             <tr>
@@ -193,9 +330,12 @@ const App = rcc({
                             </tr>
                         </thead>
                         <tbody>
-                            {this.transResToTable(this.state.lexicalRes)}
+                            {this.transResToTable_lex(this.state.lexicalRes)}
                         </tbody>
                     </table>
+                </div>
+                <div className={'panel-group part1 ' + shouldGramShow}>
+                    {this.transResToTable_gram(this.state.gramRes.res)}
                 </div>
             </div>
         )
@@ -203,3 +343,30 @@ const App = rcc({
 })
 
 render(<App />, document.getElementById('main'))
+
+
+/*
+ *
+                    <div className='panel panel-default'>
+                        <div className='panel-heading'>
+                                <a data-toggle='collapse' href='#collapse-3'>
+                                    zhankai
+                                </a>
+                        </div>
+                        <div id='collapse-3' className='panel-collapse collapse'>
+                            <div className='panel-body'>
+                                <div className='panel panel-default'>
+                                    <div className='panel-heading'>
+                                            <a data-toggle='collapse' href='#collapse-4'>
+                                                zhankai__zai zhan kai 
+                                            </a>
+                                    </div>
+                                    <div id='collapse-4' className='panel-collapse collapse'>
+                                        <div className='panel-body'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+*/
