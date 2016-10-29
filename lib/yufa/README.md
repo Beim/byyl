@@ -1,3 +1,13 @@
+- app.js 进行语法分析
+
+- makeLRTable.js 生成LR1 分析表
+
+- grammar/ LR 文法配置
+
+- util/ 生成LR 分析表 和 运行LR 分析表的函数
+
+- /util/test.js 测试文件
+
 ```
 > yufa@1.0.0 test /home/beim/usr/work/byyl1/lib/yufa
 > nyc ava -v

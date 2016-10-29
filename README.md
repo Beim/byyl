@@ -15,3 +15,6 @@ http://localhost:2333/
 
 词法分析
 `./lib/cifa`
+
+语法分析
+./lib/yufa
