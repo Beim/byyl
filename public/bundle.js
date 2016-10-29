@@ -283,6 +283,89 @@
 
 	        return arr;
 	    },
+	    transErrToTable_gram: function transErrToTable_gram(res) {
+	        if (!res || res.length <= 0) return [];
+	        var arr = [];
+	        var odd = true;
+	        res.forEach(function (item, index) {
+	            var cls = 'error';
+	            if (odd) cls += ' pure-table-odd';
+	            odd = !odd;
+	            var tr = _react2.default.createElement(
+	                'tr',
+	                { className: cls, key: 'transErr' + index },
+	                _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    item.line
+	                ),
+	                _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    item.type
+	                ),
+	                _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    item.lexical
+	                ),
+	                _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    item.begin
+	                ),
+	                _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    item.end
+	                )
+	            );
+	            arr.push(tr);
+	        });
+	        var table = _react2.default.createElement(
+	            'table',
+	            { className: 'pure-table pure-table-horizontal whole-line' },
+	            _react2.default.createElement(
+	                'thead',
+	                null,
+	                _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        '错误行'
+	                    ),
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        '类型'
+	                    ),
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        '词法值'
+	                    ),
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        '开始位置'
+	                    ),
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        '结束位置'
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'tbody',
+	                null,
+	                arr
+	            )
+	        );
+	        return table;
+	    },
 	    transResToTable_gram: function transResToTable_gram(res) {
 	        if (!res) return [];
 	        var gramTreeAllShow = this.state.gramTreeAllShow ? 'in' : '';
@@ -298,7 +381,6 @@
 
 	            if (!root) continue;
 	            if (visited) {
-	                print('visit ' + root.typeName + ', ' + level);
 	                var obj = {
 	                    level: level,
 	                    key: key++,
@@ -336,6 +418,12 @@
 	            for (var _iterator2 = path[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
 	                var item = _step2.value;
 
+	                var info = item.name;
+	                if (item.isTerminator && item.lexical !== item.name) {
+	                    info += ' : ' + item.lexical + ' (' + item.line + ')';
+	                } else {
+	                    info += ' (' + item.line + ')';
+	                }
 	                if (table.length === 0) {
 	                    s_table.push(item);
 	                    table.push(_react2.default.createElement(
@@ -347,7 +435,7 @@
 	                            _react2.default.createElement(
 	                                'a',
 	                                { 'data-toggle': 'collapse', href: '#collapse-' + item.key },
-	                                item.name
+	                                info
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -369,7 +457,7 @@
 	                                _react2.default.createElement(
 	                                    'a',
 	                                    { 'data-toggle': 'collapse', href: '#collapse-' + item.key },
-	                                    item.name
+	                                    info
 	                                )
 	                            ),
 	                            _react2.default.createElement(
@@ -381,17 +469,12 @@
 	                    } else if (topLevel > item.level) {
 	                        var idx = void 0;
 	                        for (idx = s_table.length - 1; idx >= 0; idx--) {
-	                            print('idx: ', idx);
 	                            if (s_table[idx].level <= item.level) {
 	                                break;
 	                            }
 	                        }
 	                        idx++;
-	                        print('idxxx: ', idx);
-	                        print(JSON.stringify(s_table, null, 2));
 	                        s_table = s_table.slice(0, idx);
-	                        print('stable', item.name);
-	                        print(JSON.stringify(s_table, null, 4));
 	                        s_table.push(item);
 	                        var tempTable = table.slice(idx);
 	                        table = table.slice(0, idx);
@@ -404,7 +487,7 @@
 	                                _react2.default.createElement(
 	                                    'a',
 	                                    { 'data-toggle': 'collapse', href: '#collapse-' + item.key },
-	                                    item.name
+	                                    info
 	                                )
 	                            ),
 	                            _react2.default.createElement(
@@ -559,7 +642,12 @@
 	            ),
 	            _react2.default.createElement(
 	                'div',
-	                { className: 'panel-group part1 ' + shouldGramShow },
+	                { className: 'part1 ' + shouldGramShow },
+	                this.transErrToTable_gram(this.state.gramRes.errArr)
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'big-margin-bottom panel-group part1 ' + shouldGramShow },
 	                this.transResToTable_gram(this.state.gramRes.res)
 	            )
 	        );
@@ -567,32 +655,6 @@
 	});
 
 	(0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById('main'));
-
-	/*
-	 *
-	                    <div className='panel panel-default'>
-	                        <div className='panel-heading'>
-	                                <a data-toggle='collapse' href='#collapse-3'>
-	                                    zhankai
-	                                </a>
-	                        </div>
-	                        <div id='collapse-3' className='panel-collapse collapse'>
-	                            <div className='panel-body'>
-	                                <div className='panel panel-default'>
-	                                    <div className='panel-heading'>
-	                                            <a data-toggle='collapse' href='#collapse-4'>
-	                                                zhankai__zai zhan kai 
-	                                            </a>
-	                                    </div>
-	                                    <div id='collapse-4' className='panel-collapse collapse'>
-	                                        <div className='panel-body'>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	*/
 
 /***/ },
 /* 1 */
@@ -629,7 +691,7 @@
 
 
 	// module
-	exports.push([module.id, ".fileInput {\n    display: none;\n}\n\n.part1 {\n    margin: 3% 10% 50px 10%;\n    display: flex;\n    flex-direction: row;\n}\n\n.part1-inputarea {\n    width: 100%;\n}\n\n.part1-buttonarea {\n    width: 50%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n\n.part1-buttonarea button {\n    width: 40%;\n    margin: 10px;\n}\n\n.input-textarea {\n    width: 100%;\n    height: 300px;\n}\n\n.error {\n    color: red;\n}\n\n.hide {\n    display: none;\n}\n\n.whole-line {\n    width: 100%;\n}\n\n.panel-body {\n    margin-left: 15px;\n}\n\n", ""]);
+	exports.push([module.id, ".fileInput {\n    display: none;\n}\n\n.part1 {\n    margin: 3% 10% 50px 10%;\n    display: flex;\n    flex-direction: row;\n}\n\n.part1-inputarea {\n    width: 100%;\n}\n\n.part1-buttonarea {\n    width: 50%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n\n.part1-buttonarea button {\n    width: 40%;\n    margin: 10px;\n}\n\n.input-textarea {\n    width: 100%;\n    height: 300px;\n}\n\n.error {\n    color: red;\n}\n\n.hide {\n    display: none;\n}\n\n.whole-line {\n    width: 100%;\n}\n\n.panel-body {\n    margin-left: 50px;\n}\n\n.panel-heading {\n    margin: 10px;\n}\n\n.panel-heading a {\n    font-size: 1.5em;\n    border: 2px solid;\n    border-radius: 20px;\n    padding: 5px 10px;\n}\n\n.big-margin-bottom {\n    margin-bottom: 500px;\n}\n", ""]);
 
 	// exports
 

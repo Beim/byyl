@@ -173,6 +173,45 @@ const App = rcc({
         return arr
     },
 
+    transErrToTable_gram(res) {
+        if (!res || res.length <= 0) return []
+        let arr = []
+        let odd = true
+        res.forEach((item, index) => {
+            let cls = 'error'
+            if (odd) cls += ' pure-table-odd'
+            odd = !odd
+            let tr = (
+                <tr className={cls} key={'transErr' + index}>
+                    <td>{item.line}</td>
+                    <td>{item.type}</td>
+                    <td>{item.lexical}</td>
+                    <td>{item.begin}</td>
+                    <td>{item.end}</td>
+                </tr>
+            )
+            arr.push(tr)
+        })
+        let table = (
+            <table className="pure-table pure-table-horizontal whole-line">
+                <thead>
+                    <tr>
+                        <th>错误行</th>
+                        <th>类型</th>
+                        <th>词法值</th>
+                        <th>开始位置</th>
+                        <th>结束位置</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {arr}
+                </tbody>
+            </table>
+        
+        )
+        return table
+    },
+
     transResToTable_gram(res) {
         if (!res) return []
         let gramTreeAllShow = this.state.gramTreeAllShow ? 'in' : ''
@@ -183,7 +222,6 @@ const App = rcc({
             let {root, visited, level} = stack.pop()
             if (!root) continue
             if (visited) {
-                print(`visit ${root.typeName}, ${level}`)
                 let obj = {
                     level,
                     key: key++,
@@ -214,13 +252,20 @@ const App = rcc({
         let table = []
         let s_table = []
         for (let item of path) {
+            let info = item.name
+            if (item.isTerminator && item.lexical !== item.name) {
+                info += ` : ${item.lexical} (${item.line})`
+            } else {
+                info += ` (${item.line})`
+                
+            }
             if (table.length === 0) {
                 s_table.push(item)
                 table.push(
                     <div key={`collapse-${item.key}`} className='panel panel-default'>
                         <div className='panel-heading'>
                                 <a data-toggle='collapse' href={`#collapse-${item.key}`}>
-                                    {item.name} 
+                                    {info} 
                                 </a>
                         </div>
                         <div id={`collapse-${item.key}`} className={'panel-collapse collapse ' + gramTreeAllShow}>
@@ -237,7 +282,7 @@ const App = rcc({
                         <div key={`collapse-${item.key}`} className='panel panel-default'>
                             <div className='panel-heading'>
                                     <a data-toggle='collapse' href={`#collapse-${item.key}`}>
-                                        {item.name} 
+                                        {info} 
                                     </a>
                             </div>
                             <div id={`collapse-${item.key}`} className={'panel-collapse collapse ' + gramTreeAllShow}>
@@ -249,17 +294,12 @@ const App = rcc({
                 } else if (topLevel > item.level) {
                     let idx;
                     for (idx = s_table.length - 1; idx >= 0; idx--) {
-                        print('idx: ', idx)
                         if (s_table[idx].level <= item.level) {
                             break
                         }
                     }
                     idx++
-                    print('idxxx: ', idx)
-                    print(JSON.stringify(s_table, null, 2))
                     s_table = s_table.slice(0, idx)
-                    print('stable', item.name)
-                    print(JSON.stringify(s_table, null, 4))
                     s_table.push(item)
                     let tempTable = table.slice(idx)
                     table = table.slice(0, idx)
@@ -267,7 +307,7 @@ const App = rcc({
                         <div key={`collapse-${item.key}`} className='panel panel-default'>
                             <div className='panel-heading'>
                                     <a data-toggle='collapse' href={`#collapse-${item.key}`}>
-                                        {item.name} 
+                                        {info} 
                                     </a>
                             </div>
                             <div id={`collapse-${item.key}`} className={'panel-collapse collapse ' + gramTreeAllShow}>
@@ -334,7 +374,10 @@ const App = rcc({
                         </tbody>
                     </table>
                 </div>
-                <div className={'panel-group part1 ' + shouldGramShow}>
+                <div className={'part1 ' + shouldGramShow}>
+                    {this.transErrToTable_gram(this.state.gramRes.errArr)}
+                </div>
+                <div className={'big-margin-bottom panel-group part1 ' + shouldGramShow}>
                     {this.transResToTable_gram(this.state.gramRes.res)}
                 </div>
             </div>
@@ -344,29 +387,3 @@ const App = rcc({
 
 render(<App />, document.getElementById('main'))
 
-
-/*
- *
-                    <div className='panel panel-default'>
-                        <div className='panel-heading'>
-                                <a data-toggle='collapse' href='#collapse-3'>
-                                    zhankai
-                                </a>
-                        </div>
-                        <div id='collapse-3' className='panel-collapse collapse'>
-                            <div className='panel-body'>
-                                <div className='panel panel-default'>
-                                    <div className='panel-heading'>
-                                            <a data-toggle='collapse' href='#collapse-4'>
-                                                zhankai__zai zhan kai 
-                                            </a>
-                                    </div>
-                                    <div id='collapse-4' className='panel-collapse collapse'>
-                                        <div className='panel-body'>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-*/

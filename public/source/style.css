@@ -42,6 +42,20 @@
 }
 
 .panel-body {
-    margin-left: 15px;
+    margin-left: 50px;
 }
 
+.panel-heading {
+    margin: 10px;
+}
+
+.panel-heading a {
+    font-size: 1.5em;
+    border: 2px solid;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+.big-margin-bottom {
+    margin-bottom: 500px;
+}
