@@ -1,6 +1,6 @@
 int a a a;
 int[4][2] array;
-proc func (a, array) {
+void func (int a, int array) {
     int num;
     num = a + array[1][1];
 }
