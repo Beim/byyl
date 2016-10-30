@@ -113,6 +113,7 @@
 	            shouldLexShow: false,
 	            shouldGramShow: true,
 	            gramTreeAllShow: true,
+	            shouldGramTableShow: true,
 	            source: '',
 	            lexicalCompiled: '',
 	            lexicalRes: {},
@@ -176,6 +177,10 @@
 	    showGram: function showGram() {
 	        var shouldGramShow = !this.state.shouldGramShow;
 	        this.setState({ shouldGramShow: shouldGramShow });
+	    },
+	    showGramTable: function showGramTable() {
+	        var shouldGramTableShow = !this.state.shouldGramTableShow;
+	        this.setState({ shouldGramTableShow: shouldGramTableShow });
 	    },
 
 
@@ -634,6 +639,7 @@
 	        print(this.state.gramRes.grammarTable);
 	        var shouldLexShow = this.state.shouldLexShow ? '' : 'hide';
 	        var shouldGramShow = this.state.shouldGramShow ? '' : 'hide';
+	        var shouldGramTableShow = this.state.shouldGramTableShow ? '' : 'hide';
 	        return _react2.default.createElement(
 	            'div',
 	            null,
@@ -678,6 +684,11 @@
 	                        'button',
 	                        { className: 'pure-button pure-button-primary', onClick: this.showGram },
 	                        ' GRAM '
+	                    ),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { className: 'pure-button pure-button-primary', onClick: this.showGramTable },
+	                        ' GTABLE '
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -762,7 +773,7 @@
 	            ),
 	            _react2.default.createElement(
 	                'div',
-	                { className: shouldGramShow },
+	                { className: shouldGramShow + ' ' + shouldGramTableShow },
 	                this.transGrammarToTable_gram(this.state.gramRes.grammarTable, this.state.gramRes.terminators, this.state.gramRes.nonTerminators)
 	            )
 	        );

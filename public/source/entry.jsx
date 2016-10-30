@@ -55,6 +55,7 @@ const App = rcc({
             shouldLexShow: false,
             shouldGramShow: true,
             gramTreeAllShow: true,
+            shouldGramTableShow: true,
             source: '',
             lexicalCompiled: '',
             lexicalRes: {},
@@ -115,6 +116,11 @@ const App = rcc({
     showGram() {
         let shouldGramShow = !this.state.shouldGramShow
         this.setState({shouldGramShow})
+    },
+
+    showGramTable() {
+        let shouldGramTableShow = !this.state.shouldGramTableShow
+        this.setState({shouldGramTableShow})
     },
 
     /**
@@ -395,6 +401,7 @@ const App = rcc({
         print(this.state.gramRes.grammarTable)
         let shouldLexShow = this.state.shouldLexShow ? '' : 'hide'
         let shouldGramShow = this.state.shouldGramShow ? '' : 'hide'
+        let shouldGramTableShow = this.state.shouldGramTableShow ? '' : 'hide'
         return (
             <div>
                 <input type="file" className="fileInput" id="configFileInput" accept=".json" onChange={this.loadConfig}></input>
@@ -411,6 +418,7 @@ const App = rcc({
                         <button className="pure-button pure-button-primary" onClick={this.compileSource}> Run </button>
                         <button className="pure-button pure-button-primary" onClick={this.showLex}> LEX </button>
                         <button className="pure-button pure-button-primary" onClick={this.showGram}> GRAM </button>
+                        <button className="pure-button pure-button-primary" onClick={this.showGramTable}> GTABLE </button>
                     </div>
                     <div className="part1-inputarea">
                         <form className="pure-form">
@@ -446,7 +454,7 @@ const App = rcc({
                 <div className={'big-margin-bottom panel-group part1 ' + shouldGramShow}>
                     {this.transResToTable_gram(this.state.gramRes.res)}
                 </div>
-                <div className={shouldGramShow}>
+                <div className={shouldGramShow + ' ' + shouldGramTableShow}>
                     {this.transGrammarToTable_gram(this.state.gramRes.grammarTable, this.state.gramRes.terminators, this.state.gramRes.nonTerminators)}
                 </div>
             </div>
