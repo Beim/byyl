@@ -1,13 +1,17 @@
-int a;
+int a a a;
 int[4][2] array;
 proc func (a, array) {
     int num;
     num = a + array[1][1];
 }
 
-if (a < 2 || true && (a > 1)) {
+if (a < 1)() {
+    a = 2;
+}
+
+if (a < = 2 || true && (a > 1)) {
     a = 1 + 1;
-} else {
+} else {}
     if (a != 3) {
         a = 3;
     } else {

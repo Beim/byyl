@@ -366,6 +366,116 @@
 	        );
 	        return table;
 	    },
+	    transGrammarToTable_gram: function transGrammarToTable_gram(res, terminators, nonTerminators) {
+	        if (!res || res.length <= 0) return [];
+	        var ACTION = res.ACTION;
+	        var GOTO = res.GOTO;
+	        var symbols = terminators.concat(terminators, nonTerminators);
+	        var arr = [];
+	        var odd = true;
+	        // res.forEach((item, index) => {
+
+	        // })
+
+	        var _loop = function _loop(i) {
+	            var cls = '';
+	            if (odd) cls += 'pure-table-odd';
+	            odd = !odd;
+	            var terminators_td = terminators.map(function (value, index) {
+	                return _react2.default.createElement(
+	                    'td',
+	                    { key: 'terminators_td' + value + index },
+	                    ACTION[i][value] === 'err' ? '' : ACTION[i][value]
+	                );
+	            });
+	            var nonTerminators_td = nonTerminators.map(function (value, index) {
+	                return _react2.default.createElement(
+	                    'td',
+	                    { key: 'nonTerminators_td' + value + index },
+	                    GOTO[i][value] === 'err' ? '' : GOTO[i][value]
+	                );
+	            });
+	            var tr = _react2.default.createElement(
+	                'tr',
+	                { className: cls, key: 'transGrammar' + i },
+	                _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    i
+	                ),
+	                terminators_td,
+	                nonTerminators_td
+	            );
+	            arr.push(tr);
+	        };
+
+	        for (var i in ACTION) {
+	            _loop(i);
+	        }
+
+	        var terminators_th_null = terminators.map(function (value, index) {
+	            return _react2.default.createElement('th', { key: 'terminators_th' + value + index });
+	        }).slice(0, -1);
+	        var nonTerminators_th_null = nonTerminators.map(function (value, index) {
+	            return _react2.default.createElement('th', { key: 'nonTerminators_th' + value + index });
+	        }).slice(0, -1);
+	        var terminators_th = terminators.map(function (value, index) {
+	            return _react2.default.createElement(
+	                'th',
+	                { key: 'terminators' + value + index },
+	                value
+	            );
+	        });
+	        var nonTerminators_th = nonTerminators.map(function (value, index) {
+	            return _react2.default.createElement(
+	                'th',
+	                { key: 'nonTerminators' + value + index },
+	                value
+	            );
+	        });
+	        var table = _react2.default.createElement(
+	            'table',
+	            { className: 'pure-table pure-tablle-horizontal whole-line' },
+	            _react2.default.createElement(
+	                'thead',
+	                null,
+	                _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        '#'
+	                    ),
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        'ACTION'
+	                    ),
+	                    terminators_th_null,
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        'GOTO'
+	                    ),
+	                    nonTerminators_th_null
+	                ),
+	                _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement('th', null),
+	                    terminators_th,
+	                    nonTerminators_th
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'tbody',
+	                null,
+	                arr
+	            )
+	        );
+	        return table;
+	    },
 	    transResToTable_gram: function transResToTable_gram(res) {
 	        if (!res) return [];
 	        var gramTreeAllShow = this.state.gramTreeAllShow ? 'in' : '';
@@ -521,7 +631,7 @@
 	        return table;
 	    },
 	    render: function render() {
-	        print(this.state.gramRes);
+	        print(this.state.gramRes.grammarTable);
 	        var shouldLexShow = this.state.shouldLexShow ? '' : 'hide';
 	        var shouldGramShow = this.state.shouldGramShow ? '' : 'hide';
 	        return _react2.default.createElement(
@@ -649,6 +759,11 @@
 	                'div',
 	                { className: 'big-margin-bottom panel-group part1 ' + shouldGramShow },
 	                this.transResToTable_gram(this.state.gramRes.res)
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: shouldGramShow },
+	                this.transGrammarToTable_gram(this.state.gramRes.grammarTable, this.state.gramRes.terminators, this.state.gramRes.nonTerminators)
 	            )
 	        );
 	    }

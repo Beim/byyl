@@ -212,6 +212,72 @@ const App = rcc({
         return table
     },
 
+    transGrammarToTable_gram(res, terminators, nonTerminators) {
+        if (!res || res.length <= 0) return []
+        let ACTION = res.ACTION
+        let GOTO = res.GOTO
+        let symbols = terminators.concat(terminators, nonTerminators)
+        let arr = []
+        let odd = true
+        // res.forEach((item, index) => {
+
+        // })
+        for (let i in ACTION) {
+            let cls = ''
+            if (odd) cls += 'pure-table-odd'
+            odd = !odd
+            let terminators_td = terminators.map((value, index) => {
+                return (<td key={'terminators_td' + value + index}>{ACTION[i][value] === 'err' ? '' : ACTION[i][value]}</td>)
+            })
+            let nonTerminators_td = nonTerminators.map((value, index) => {
+                return (<td key={'nonTerminators_td' + value + index}>{GOTO[i][value] === 'err' ? '' : GOTO[i][value]}</td>)
+            })
+            let tr = (
+                <tr className={cls} key={'transGrammar' + i}>
+                    <td>{i}</td>
+                    {terminators_td}
+                    {nonTerminators_td}
+                </tr>
+            )
+            arr.push(tr)
+        }
+
+        let terminators_th_null = terminators.map((value, index) => {
+            return (<th key={'terminators_th' + value + index}></th>)
+        }).slice(0, -1)
+        let nonTerminators_th_null = nonTerminators.map((value, index) => {
+            return (<th key={'nonTerminators_th' + value + index}></th>)
+        }).slice(0, -1)
+        let terminators_th = terminators.map((value, index) => {
+            return (<th key={'terminators' + value + index}>{value}</th>)
+        })
+        let nonTerminators_th = nonTerminators.map((value, index) => {
+            return (<th key={'nonTerminators' + value + index}>{value}</th>)
+        })
+        let table = (
+            <table className="pure-table pure-tablle-horizontal whole-line">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ACTION</th>
+                        {terminators_th_null}
+                        <th>GOTO</th>
+                        {nonTerminators_th_null}
+                    </tr>
+                    <tr>
+                        <th></th>
+                        {terminators_th}
+                        {nonTerminators_th}
+                    </tr>
+                </thead>
+                <tbody>
+                    {arr}
+                </tbody>
+            </table>
+        )
+        return table
+    },
+
     transResToTable_gram(res) {
         if (!res) return []
         let gramTreeAllShow = this.state.gramTreeAllShow ? 'in' : ''
@@ -326,7 +392,7 @@ const App = rcc({
     },
 
     render() {
-        print(this.state.gramRes)
+        print(this.state.gramRes.grammarTable)
         let shouldLexShow = this.state.shouldLexShow ? '' : 'hide'
         let shouldGramShow = this.state.shouldGramShow ? '' : 'hide'
         return (
@@ -379,6 +445,9 @@ const App = rcc({
                 </div>
                 <div className={'big-margin-bottom panel-group part1 ' + shouldGramShow}>
                     {this.transResToTable_gram(this.state.gramRes.res)}
+                </div>
+                <div className={shouldGramShow}>
+                    {this.transGrammarToTable_gram(this.state.gramRes.grammarTable, this.state.gramRes.terminators, this.state.gramRes.nonTerminators)}
                 </div>
             </div>
         )
