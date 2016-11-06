@@ -59,3 +59,11 @@
 .big-margin-bottom {
     margin-bottom: 500px;
 }
+
+.pink {
+    color: lightcoral;
+}
+
+.pink:hover {
+    color: lightcoral;
+}

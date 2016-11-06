@@ -55,7 +55,7 @@ const App = rcc({
             shouldLexShow: false,
             shouldGramShow: true,
             gramTreeAllShow: true,
-            shouldGramTableShow: true,
+            shouldGramTableShow: false,
             source: '',
             lexicalCompiled: '',
             lexicalRes: {},
@@ -325,6 +325,8 @@ const App = rcc({
         let s_table = []
         for (let item of path) {
             let info = item.name
+            let pink = ''
+            if (item.isTerminator) pink = 'pink'
             if (item.isTerminator && item.lexical !== item.name) {
                 info += ` : ${item.lexical} (${item.line})`
             } else {
@@ -336,7 +338,7 @@ const App = rcc({
                 table.push(
                     <div key={`collapse-${item.key}`} className='panel panel-default'>
                         <div className='panel-heading'>
-                                <a data-toggle='collapse' href={`#collapse-${item.key}`}>
+                                <a className={pink} data-toggle='collapse' href={`#collapse-${item.key}`}>
                                     {info} 
                                 </a>
                         </div>
@@ -353,7 +355,7 @@ const App = rcc({
                     table.push(
                         <div key={`collapse-${item.key}`} className='panel panel-default'>
                             <div className='panel-heading'>
-                                    <a data-toggle='collapse' href={`#collapse-${item.key}`}>
+                                    <a className={pink} data-toggle='collapse' href={`#collapse-${item.key}`}>
                                         {info} 
                                     </a>
                             </div>

@@ -113,7 +113,7 @@
 	            shouldLexShow: false,
 	            shouldGramShow: true,
 	            gramTreeAllShow: true,
-	            shouldGramTableShow: true,
+	            shouldGramTableShow: false,
 	            source: '',
 	            lexicalCompiled: '',
 	            lexicalRes: {},
@@ -534,6 +534,8 @@
 	                var item = _step2.value;
 
 	                var info = item.name;
+	                var pink = '';
+	                if (item.isTerminator) pink = 'pink';
 	                if (item.isTerminator && item.lexical !== item.name) {
 	                    info += ' : ' + item.lexical + ' (' + item.line + ')';
 	                } else {
@@ -549,7 +551,7 @@
 	                            { className: 'panel-heading' },
 	                            _react2.default.createElement(
 	                                'a',
-	                                { 'data-toggle': 'collapse', href: '#collapse-' + item.key },
+	                                { className: pink, 'data-toggle': 'collapse', href: '#collapse-' + item.key },
 	                                info
 	                            )
 	                        ),
@@ -571,7 +573,7 @@
 	                                { className: 'panel-heading' },
 	                                _react2.default.createElement(
 	                                    'a',
-	                                    { 'data-toggle': 'collapse', href: '#collapse-' + item.key },
+	                                    { className: pink, 'data-toggle': 'collapse', href: '#collapse-' + item.key },
 	                                    info
 	                                )
 	                            ),
@@ -817,7 +819,7 @@
 
 
 	// module
-	exports.push([module.id, ".fileInput {\n    display: none;\n}\n\n.part1 {\n    margin: 3% 10% 50px 10%;\n    display: flex;\n    flex-direction: row;\n}\n\n.part1-inputarea {\n    width: 100%;\n}\n\n.part1-buttonarea {\n    width: 50%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n\n.part1-buttonarea button {\n    width: 40%;\n    margin: 10px;\n}\n\n.input-textarea {\n    width: 100%;\n    height: 300px;\n}\n\n.error {\n    color: red;\n}\n\n.hide {\n    display: none;\n}\n\n.whole-line {\n    width: 100%;\n}\n\n.panel-body {\n    margin-left: 50px;\n}\n\n.panel-heading {\n    margin: 10px;\n}\n\n.panel-heading a {\n    font-size: 1.5em;\n    border: 2px solid;\n    border-radius: 20px;\n    padding: 5px 10px;\n}\n\n.big-margin-bottom {\n    margin-bottom: 500px;\n}\n", ""]);
+	exports.push([module.id, ".fileInput {\n    display: none;\n}\n\n.part1 {\n    margin: 3% 10% 50px 10%;\n    display: flex;\n    flex-direction: row;\n}\n\n.part1-inputarea {\n    width: 100%;\n}\n\n.part1-buttonarea {\n    width: 50%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n\n.part1-buttonarea button {\n    width: 40%;\n    margin: 10px;\n}\n\n.input-textarea {\n    width: 100%;\n    height: 300px;\n}\n\n.error {\n    color: red;\n}\n\n.hide {\n    display: none;\n}\n\n.whole-line {\n    width: 100%;\n}\n\n.panel-body {\n    margin-left: 50px;\n}\n\n.panel-heading {\n    margin: 10px;\n}\n\n.panel-heading a {\n    font-size: 1.5em;\n    border: 2px solid;\n    border-radius: 20px;\n    padding: 5px 10px;\n}\n\n.big-margin-bottom {\n    margin-bottom: 500px;\n}\n\n.pink {\n    color: lightcoral;\n}\n\n.pink:hover {\n    color: lightcoral;\n}\n", ""]);
 
 	// exports
 
