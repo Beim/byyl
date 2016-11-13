@@ -5,15 +5,15 @@ void Add(int x, int y) {
 int main() {
     int x[10];
     int y, z;
-    int i;
+    int i iii iii;
 
     y = 2;
     i = 0;
     x[i] = i;
     do {
-        if (x[i] == y) {
+        if (x[i] == y)() {
             z = Add(x[i], y);
-        } else {
+        } else { {
             z = y - x[i];
         }
     } while (x[i] <= y);
