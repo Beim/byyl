@@ -67,3 +67,13 @@
 .pink:hover {
     color: lightcoral;
 }
+
+.codediv {
+    margin-bottom: 150px;
+    display: flex;
+    color: red;
+}
+
+.codediv table {
+    margin-right: 50px;
+}

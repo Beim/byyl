@@ -53,14 +53,16 @@ const App = rcc({
             config: '',
             DFA: '',
             shouldLexShow: false,
-            shouldGramShow: true,
+            shouldGramShow: false,
             gramTreeAllShow: true,
             shouldGramTableShow: false,
+            shouldExpShow: true,
             source: '',
             lexicalCompiled: '',
             lexicalRes: {},
             gramRes: {},
-            message: ''
+            message: '',
+            EnvArr: []
         }
     },
 
@@ -118,6 +120,11 @@ const App = rcc({
         this.setState({shouldGramShow})
     },
 
+    showExp() {
+        let shouldExpShow = !this.state.shouldExpShow
+        this.setState({shouldExpShow})
+    },
+
     showGramTable() {
         let shouldGramTableShow = !this.state.shouldGramTableShow
         this.setState({shouldGramTableShow})
@@ -141,14 +148,28 @@ const App = rcc({
             })
         })
         */
+
         /*
          * 语法分析阶段的请求
-         */
+         *
         util.fetch('POST', '/gram', data).then(({lexRes, gramRes}) => {
             this.setState({
                 lexicalCompiled: lexRes.returnRes,
                 lexicalRes: lexRes,
                 gramRes
+            })
+        })
+        */
+
+        /*
+         * 语义分析阶段的请求
+         */
+        util.fetch('POST', '/exp', data).then(({lexRes, gramRes}) => {
+            this.setState({
+                lexicalCompiled: lexRes.returnRes,
+                lexicalRes: lexRes,
+                gramRes,
+                EnvArr: gramRes.EnvArr || []
             })
         })
     },
@@ -326,13 +347,13 @@ const App = rcc({
         for (let item of path) {
             let info = item.name
             let pink = ''
-            if (item.isTerminator) pink = 'pink'
+            if (item.isTerminator && item.lexical !== 'nil') pink = 'pink'
             if (item.isTerminator && item.lexical !== item.name) {
-                info += ` : ${item.lexical} (${item.line})`
-            } else {
-                info += ` (${item.line})`
-                
+                info += ` : ${item.lexical}`
             }
+            if (item.line !== undefined) 
+                info += ` (${item.line})`
+
             if (table.length === 0) {
                 s_table.push(item)
                 table.push(
@@ -399,11 +420,136 @@ const App = rcc({
         return table
     },
 
+    transErrToTable_exp(res) {
+        if (!res || res.length <= 0) return []
+        print(res)
+        let arr = []
+        let odd = true
+        res.forEach((item, index) => {
+            let cls = 'error'
+            if (odd) cls += ' pure-table-odd'
+            odd = !odd
+            let tr = (
+                <tr className={cls}>
+                    <td>{item.replace(/ /g, '   ')}</td>
+                </tr>
+            )
+            arr.push(tr)
+        })
+        let table = (
+            <table className="pure-table pure-table-horizontal whole-line">
+                <tbody>
+                    {arr}
+                </tbody>
+            </table>
+            
+        )
+        return table
+    },
+
+    transExpToTable_exp(EnvArr) {
+        if (!EnvArr) return []
+        let resArr = [] 
+        EnvArr.forEach((env, idx) => {
+            // print(env)
+            let flistStr = env.flist.reduce((prev, curr) => `${prev}, ${curr.id}(${curr.type.name})`, '').slice(2)
+            let nextStr = env.next.reduce((prev, curr) => `${prev}, ${curr}`, '').slice(2)
+
+            let thead = (
+                <thead>
+                    <tr>
+                        <th>名</th>
+                        <th>返回值</th>
+                        <th>偏移量</th>
+                        <th>参数</th>
+                        <th>父节点</th>
+                        <th>子节点</th>
+                    </tr>
+                </thead>
+            )
+            let tbody = (
+                <tbody>
+                    <tr>
+                        <td>{env.name}</td>
+                        <td>{env.returnType.name}</td>
+                        <td>{env.offset}</td>
+                        <td>{flistStr}</td>
+                        <td>{env.prev}</td>
+                        <td>{nextStr}</td>
+                    </tr>
+                </tbody>
+            )
+
+            resArr.push(
+                <div className={`part1 ` + this.state.shouldExpShow}>
+                    <table className='pure-table pure-table-horizontal whole-line'>
+                        {thead}
+                        {tbody}
+                    </table>
+                </div>
+            )
+
+            let code_3 = env.code_3.map((code, index) => {
+                return (
+                    <tr>
+                        <td>{index}</td>
+                        <td>{code.slice(2)}</td>
+                    </tr>
+                )
+            })
+            let top = env.top.map((t, index) => {
+                return (
+                    <tr>
+                        <td>{index}</td>
+                        <td>{t.id}</td>
+                        <td>{t.type.name}</td>
+                        <td>{t.width}</td>
+                        <td>{t.offset}</td>
+                    </tr>
+                )
+            })
+            resArr.push(
+                <div className={`part1 ${this.state.shouldExpShow} codediv`}>
+                    <table className='pure-table '>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>三地址码</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {code_3}
+                        </tbody>
+                    </table>
+                    <table className='pure-table'>
+                        <thead>
+                            <tr>
+                                <th>符号表</th>
+                                <th>名</th>
+                                <th>类型</th>
+                                <th>宽度</th>
+                                <th>偏移量</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {top}
+                        </tbody>
+                    </table>
+                </div>
+            )
+
+
+        })
+        return resArr
+    },
+
     render() {
-        print(this.state.gramRes.grammarTable)
+        // print(this.state.EnvArr)
+        // print(this.state.gramRes.grammarTable)
         let shouldLexShow = this.state.shouldLexShow ? '' : 'hide'
         let shouldGramShow = this.state.shouldGramShow ? '' : 'hide'
         let shouldGramTableShow = this.state.shouldGramTableShow ? '' : 'hide'
+        let shouldExpShow = this.state.shouldExpShow ? '' : 'hide'
         return (
             <div>
                 <input type="file" className="fileInput" id="configFileInput" accept=".json" onChange={this.loadConfig}></input>
@@ -415,12 +561,11 @@ const App = rcc({
                         </form>
                     </div>
                     <div className="part1-buttonarea">
-                        <button className="pure-button pure-button-primary" onClick={this.clickConfigDiv}> Config </button>
                         <button className="pure-button pure-button-primary" onClick={this.clickSourceDiv}> Source </button>
                         <button className="pure-button pure-button-primary" onClick={this.compileSource}> Run </button>
                         <button className="pure-button pure-button-primary" onClick={this.showLex}> LEX </button>
                         <button className="pure-button pure-button-primary" onClick={this.showGram}> GRAM </button>
-                        <button className="pure-button pure-button-primary" onClick={this.showGramTable}> GTABLE </button>
+                        <button className="pure-button pure-button-primary" onClick={this.showExp}> EXP </button>
                     </div>
                     <div className="part1-inputarea">
                         <form className="pure-form">
@@ -450,15 +595,13 @@ const App = rcc({
                         </tbody>
                     </table>
                 </div>
-                <div className={'part1 ' + shouldGramShow}>
-                    {this.transErrToTable_gram(this.state.gramRes.errArr)}
-                </div>
                 <div className={'big-margin-bottom panel-group part1 ' + shouldGramShow}>
                     {this.transResToTable_gram(this.state.gramRes.res)}
                 </div>
-                <div className={shouldGramShow + ' ' + shouldGramTableShow}>
-                    {this.transGrammarToTable_gram(this.state.gramRes.grammarTable, this.state.gramRes.terminators, this.state.gramRes.nonTerminators)}
+                <div className={'part1 ' + shouldExpShow}>
+                    {this.transErrToTable_exp(this.state.gramRes.errArr)}
                 </div>
+                {this.transExpToTable_exp(this.state.EnvArr)}
             </div>
         )
     }

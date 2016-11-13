@@ -1,4 +1,5 @@
 {
     "/lex": "lex.js",
-    "/gram": "gram.js"
+    "/gram": "gram.js",
+    "/exp": "exp.js"
 }

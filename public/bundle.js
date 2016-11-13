@@ -111,14 +111,16 @@
 	            config: '',
 	            DFA: '',
 	            shouldLexShow: false,
-	            shouldGramShow: true,
+	            shouldGramShow: false,
 	            gramTreeAllShow: true,
 	            shouldGramTableShow: false,
+	            shouldExpShow: true,
 	            source: '',
 	            lexicalCompiled: '',
 	            lexicalRes: {},
 	            gramRes: {},
-	            message: ''
+	            message: '',
+	            EnvArr: []
 	        };
 	    },
 	    clickConfigDiv: function clickConfigDiv() {
@@ -178,6 +180,10 @@
 	        var shouldGramShow = !this.state.shouldGramShow;
 	        this.setState({ shouldGramShow: shouldGramShow });
 	    },
+	    showExp: function showExp() {
+	        var shouldExpShow = !this.state.shouldExpShow;
+	        this.setState({ shouldExpShow: shouldExpShow });
+	    },
 	    showGramTable: function showGramTable() {
 	        var shouldGramTableShow = !this.state.shouldGramTableShow;
 	        this.setState({ shouldGramTableShow: shouldGramTableShow });
@@ -204,17 +210,31 @@
 	            })
 	        })
 	        */
+
 	        /*
 	         * 语法分析阶段的请求
+	         *
+	        util.fetch('POST', '/gram', data).then(({lexRes, gramRes}) => {
+	            this.setState({
+	                lexicalCompiled: lexRes.returnRes,
+	                lexicalRes: lexRes,
+	                gramRes
+	            })
+	        })
+	        */
+
+	        /*
+	         * 语义分析阶段的请求
 	         */
-	        _util2.default.fetch('POST', '/gram', data).then(function (_ref) {
+	        _util2.default.fetch('POST', '/exp', data).then(function (_ref) {
 	            var lexRes = _ref.lexRes;
 	            var gramRes = _ref.gramRes;
 
 	            _this3.setState({
 	                lexicalCompiled: lexRes.returnRes,
 	                lexicalRes: lexRes,
-	                gramRes: gramRes
+	                gramRes: gramRes,
+	                EnvArr: gramRes.EnvArr || []
 	            });
 	        });
 	    },
@@ -535,12 +555,12 @@
 
 	                var info = item.name;
 	                var pink = '';
-	                if (item.isTerminator) pink = 'pink';
+	                if (item.isTerminator && item.lexical !== 'nil') pink = 'pink';
 	                if (item.isTerminator && item.lexical !== item.name) {
-	                    info += ' : ' + item.lexical + ' (' + item.line + ')';
-	                } else {
-	                    info += ' (' + item.line + ')';
+	                    info += ' : ' + item.lexical;
 	                }
+	                if (item.line !== undefined) info += ' (' + item.line + ')';
+
 	                if (table.length === 0) {
 	                    s_table.push(item);
 	                    table.push(_react2.default.createElement(
@@ -637,11 +657,265 @@
 
 	        return table;
 	    },
+	    transErrToTable_exp: function transErrToTable_exp(res) {
+	        if (!res || res.length <= 0) return [];
+	        print(res);
+	        var arr = [];
+	        var odd = true;
+	        res.forEach(function (item, index) {
+	            var cls = 'error';
+	            if (odd) cls += ' pure-table-odd';
+	            odd = !odd;
+	            var tr = _react2.default.createElement(
+	                'tr',
+	                { className: cls },
+	                _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    item.replace(/ /g, '   ')
+	                )
+	            );
+	            arr.push(tr);
+	        });
+	        var table = _react2.default.createElement(
+	            'table',
+	            { className: 'pure-table pure-table-horizontal whole-line' },
+	            _react2.default.createElement(
+	                'tbody',
+	                null,
+	                arr
+	            )
+	        );
+	        return table;
+	    },
+	    transExpToTable_exp: function transExpToTable_exp(EnvArr) {
+	        var _this4 = this;
+
+	        if (!EnvArr) return [];
+	        var resArr = [];
+	        EnvArr.forEach(function (env, idx) {
+	            // print(env)
+	            var flistStr = env.flist.reduce(function (prev, curr) {
+	                return prev + ', ' + curr.id + '(' + curr.type.name + ')';
+	            }, '').slice(2);
+	            var nextStr = env.next.reduce(function (prev, curr) {
+	                return prev + ', ' + curr;
+	            }, '').slice(2);
+
+	            var thead = _react2.default.createElement(
+	                'thead',
+	                null,
+	                _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        '名'
+	                    ),
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        '返回值'
+	                    ),
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        '偏移量'
+	                    ),
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        '参数'
+	                    ),
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        '父节点'
+	                    ),
+	                    _react2.default.createElement(
+	                        'th',
+	                        null,
+	                        '子节点'
+	                    )
+	                )
+	            );
+	            var tbody = _react2.default.createElement(
+	                'tbody',
+	                null,
+	                _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        env.name
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        env.returnType.name
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        env.offset
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        flistStr
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        env.prev
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        nextStr
+	                    )
+	                )
+	            );
+
+	            resArr.push(_react2.default.createElement(
+	                'div',
+	                { className: 'part1 ' + _this4.state.shouldExpShow },
+	                _react2.default.createElement(
+	                    'table',
+	                    { className: 'pure-table pure-table-horizontal whole-line' },
+	                    thead,
+	                    tbody
+	                )
+	            ));
+
+	            var code_3 = env.code_3.map(function (code, index) {
+	                return _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        index
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        code.slice(2)
+	                    )
+	                );
+	            });
+	            var top = env.top.map(function (t, index) {
+	                return _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        index
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        t.id
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        t.type.name
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        t.width
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        t.offset
+	                    )
+	                );
+	            });
+	            resArr.push(_react2.default.createElement(
+	                'div',
+	                { className: 'part1 ' + _this4.state.shouldExpShow + ' codediv' },
+	                _react2.default.createElement(
+	                    'table',
+	                    { className: 'pure-table ' },
+	                    _react2.default.createElement(
+	                        'thead',
+	                        null,
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement('th', null),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '三地址码'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tbody',
+	                        null,
+	                        code_3
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'table',
+	                    { className: 'pure-table' },
+	                    _react2.default.createElement(
+	                        'thead',
+	                        null,
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '符号表'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '名'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '类型'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '宽度'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '偏移量'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tbody',
+	                        null,
+	                        top
+	                    )
+	                )
+	            ));
+	        });
+	        return resArr;
+	    },
 	    render: function render() {
-	        print(this.state.gramRes.grammarTable);
+	        // print(this.state.EnvArr)
+	        // print(this.state.gramRes.grammarTable)
 	        var shouldLexShow = this.state.shouldLexShow ? '' : 'hide';
 	        var shouldGramShow = this.state.shouldGramShow ? '' : 'hide';
 	        var shouldGramTableShow = this.state.shouldGramTableShow ? '' : 'hide';
+	        var shouldExpShow = this.state.shouldExpShow ? '' : 'hide';
 	        return _react2.default.createElement(
 	            'div',
 	            null,
@@ -664,11 +938,6 @@
 	                    { className: 'part1-buttonarea' },
 	                    _react2.default.createElement(
 	                        'button',
-	                        { className: 'pure-button pure-button-primary', onClick: this.clickConfigDiv },
-	                        ' Config '
-	                    ),
-	                    _react2.default.createElement(
-	                        'button',
 	                        { className: 'pure-button pure-button-primary', onClick: this.clickSourceDiv },
 	                        ' Source '
 	                    ),
@@ -689,8 +958,8 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'button',
-	                        { className: 'pure-button pure-button-primary', onClick: this.showGramTable },
-	                        ' GTABLE '
+	                        { className: 'pure-button pure-button-primary', onClick: this.showExp },
+	                        ' EXP '
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -765,19 +1034,15 @@
 	            ),
 	            _react2.default.createElement(
 	                'div',
-	                { className: 'part1 ' + shouldGramShow },
-	                this.transErrToTable_gram(this.state.gramRes.errArr)
-	            ),
-	            _react2.default.createElement(
-	                'div',
 	                { className: 'big-margin-bottom panel-group part1 ' + shouldGramShow },
 	                this.transResToTable_gram(this.state.gramRes.res)
 	            ),
 	            _react2.default.createElement(
 	                'div',
-	                { className: shouldGramShow + ' ' + shouldGramTableShow },
-	                this.transGrammarToTable_gram(this.state.gramRes.grammarTable, this.state.gramRes.terminators, this.state.gramRes.nonTerminators)
-	            )
+	                { className: 'part1 ' + shouldExpShow },
+	                this.transErrToTable_exp(this.state.gramRes.errArr)
+	            ),
+	            this.transExpToTable_exp(this.state.EnvArr)
 	        );
 	    }
 	});
@@ -819,7 +1084,7 @@
 
 
 	// module
-	exports.push([module.id, ".fileInput {\n    display: none;\n}\n\n.part1 {\n    margin: 3% 10% 50px 10%;\n    display: flex;\n    flex-direction: row;\n}\n\n.part1-inputarea {\n    width: 100%;\n}\n\n.part1-buttonarea {\n    width: 50%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n\n.part1-buttonarea button {\n    width: 40%;\n    margin: 10px;\n}\n\n.input-textarea {\n    width: 100%;\n    height: 300px;\n}\n\n.error {\n    color: red;\n}\n\n.hide {\n    display: none;\n}\n\n.whole-line {\n    width: 100%;\n}\n\n.panel-body {\n    margin-left: 50px;\n}\n\n.panel-heading {\n    margin: 10px;\n}\n\n.panel-heading a {\n    font-size: 1.5em;\n    border: 2px solid;\n    border-radius: 20px;\n    padding: 5px 10px;\n}\n\n.big-margin-bottom {\n    margin-bottom: 500px;\n}\n\n.pink {\n    color: lightcoral;\n}\n\n.pink:hover {\n    color: lightcoral;\n}\n", ""]);
+	exports.push([module.id, ".fileInput {\n    display: none;\n}\n\n.part1 {\n    margin: 3% 10% 50px 10%;\n    display: flex;\n    flex-direction: row;\n}\n\n.part1-inputarea {\n    width: 100%;\n}\n\n.part1-buttonarea {\n    width: 50%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n\n.part1-buttonarea button {\n    width: 40%;\n    margin: 10px;\n}\n\n.input-textarea {\n    width: 100%;\n    height: 300px;\n}\n\n.error {\n    color: red;\n}\n\n.hide {\n    display: none;\n}\n\n.whole-line {\n    width: 100%;\n}\n\n.panel-body {\n    margin-left: 50px;\n}\n\n.panel-heading {\n    margin: 10px;\n}\n\n.panel-heading a {\n    font-size: 1.5em;\n    border: 2px solid;\n    border-radius: 20px;\n    padding: 5px 10px;\n}\n\n.big-margin-bottom {\n    margin-bottom: 500px;\n}\n\n.pink {\n    color: lightcoral;\n}\n\n.pink:hover {\n    color: lightcoral;\n}\n\n.codediv {\n    margin-bottom: 150px;\n    display: flex;\n    color: red;\n}\n\n.codediv table {\n    margin-right: 50px;\n}\n", ""]);
 
 	// exports
 
