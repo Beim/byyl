@@ -8,91 +8,52 @@
           "typeName": "D",
           "next": [
             {
-              "typeName": "Da",
+              "typeName": "D",
               "next": [
                 {
-                  "typeName": "T",
+                  "typeName": "Da",
                   "next": [
                     {
-                      "typeName": "B",
+                      "typeName": "T",
                       "next": [
                         {
-                          "flag": 0,
-                          "res": "<8, int>",
-                          "type": "8",
-                          "end": 2,
+                          "typeName": "B",
+                          "next": [
+                            {
+                              "flag": 0,
+                              "res": "<8, int>",
+                              "type": "8",
+                              "end": 2,
+                              "line": 1,
+                              "begin": 0,
+                              "info": "关键字",
+                              "typeName": "integer",
+                              "lexical": "int",
+                              "index": "0",
+                              "isTerminator": 1
+                            }
+                          ],
                           "line": 1,
-                          "begin": 0,
-                          "info": "关键字",
-                          "typeName": "integer",
-                          "lexical": "int",
-                          "index": "0",
-                          "isTerminator": 1
-                        }
-                      ],
-                      "line": 1,
-                      "isTerminator": 0,
-                      "type": {
-                        "name": "integer",
-                        "width": 4
-                      },
-                      "width": 4
-                    },
-                    {
-                      "typeName": "nT1",
-                      "next": [
-                        {
-                          "type": "-2",
-                          "typeName": "nil",
-                          "lexical": "nil",
-                          "line": 1,
-                          "isTerminator": 1
-                        }
-                      ],
-                      "line": 1,
-                      "isTerminator": 0
-                    },
-                    {
-                      "typeName": "C",
-                      "next": [
-                        {
-                          "flag": 0,
-                          "res": "<72, [>",
-                          "type": "72",
-                          "end": 3,
-                          "line": 1,
-                          "begin": 3,
-                          "info": "界符",
-                          "typeName": "[",
-                          "lexical": "[",
-                          "index": "1",
-                          "isTerminator": 1
+                          "isTerminator": 0,
+                          "type": {
+                            "name": "integer",
+                            "width": 4
+                          },
+                          "width": 4
                         },
                         {
-                          "flag": 0,
-                          "res": "<80, 1>",
-                          "type": "80",
-                          "end": 4,
+                          "typeName": "nT1",
+                          "next": [
+                            {
+                              "type": "-2",
+                              "typeName": "nil",
+                              "lexical": "nil",
+                              "line": 1,
+                              "isTerminator": 1
+                            }
+                          ],
                           "line": 1,
-                          "begin": 4,
-                          "info": "常数",
-                          "typeName": "num",
-                          "lexical": "1",
-                          "index": "2",
-                          "isTerminator": 1
-                        },
-                        {
-                          "flag": 0,
-                          "res": "<73, ]>",
-                          "type": "73",
-                          "end": 5,
-                          "line": 1,
-                          "begin": 5,
-                          "info": "界符",
-                          "typeName": "]",
-                          "lexical": "]",
-                          "index": "3",
-                          "isTerminator": 1
+                          "isTerminator": 0
                         },
                         {
                           "typeName": "C",
@@ -117,46 +78,128 @@
                       "line": 1,
                       "isTerminator": 0,
                       "type": {
-                        "sub": {
-                          "value": "1",
-                          "type": {
-                            "name": "integer",
-                            "width": 4
-                          },
-                          "width": 4
-                        },
-                        "name": "array",
+                        "name": "integer",
                         "width": 4
                       },
                       "width": 4
+                    },
+                    {
+                      "flag": 0,
+                      "res": "<85, a>",
+                      "type": "85",
+                      "end": 4,
+                      "line": 1,
+                      "begin": 4,
+                      "info": "标识符",
+                      "typeName": "id",
+                      "lexical": "a",
+                      "index": "1",
+                      "isTerminator": 1
+                    },
+                    {
+                      "flag": 0,
+                      "res": "<76, ;>",
+                      "type": "76",
+                      "end": 5,
+                      "line": 1,
+                      "begin": 5,
+                      "info": "界符",
+                      "typeName": ";",
+                      "lexical": ";",
+                      "index": "2",
+                      "isTerminator": 1
                     }
                   ],
                   "line": 1,
-                  "isTerminator": 0,
-                  "type": {
-                    "sub": {
-                      "value": "1",
+                  "isTerminator": 0
+                }
+              ],
+              "line": 1,
+              "isTerminator": 0
+            },
+            {
+              "typeName": "Da",
+              "next": [
+                {
+                  "typeName": "T",
+                  "next": [
+                    {
+                      "typeName": "B",
+                      "next": [
+                        {
+                          "flag": 0,
+                          "res": "<8, int>",
+                          "type": "8",
+                          "end": 9,
+                          "line": 2,
+                          "begin": 7,
+                          "info": "关键字",
+                          "typeName": "integer",
+                          "lexical": "int",
+                          "index": "3",
+                          "isTerminator": 1
+                        }
+                      ],
+                      "line": 2,
+                      "isTerminator": 0,
                       "type": {
                         "name": "integer",
                         "width": 4
                       },
                       "width": 4
                     },
-                    "name": "array",
+                    {
+                      "typeName": "nT1",
+                      "next": [
+                        {
+                          "type": "-2",
+                          "typeName": "nil",
+                          "lexical": "nil",
+                          "line": 2,
+                          "isTerminator": 1
+                        }
+                      ],
+                      "line": 2,
+                      "isTerminator": 0
+                    },
+                    {
+                      "typeName": "C",
+                      "next": [
+                        {
+                          "type": "-2",
+                          "typeName": "nil",
+                          "lexical": "nil",
+                          "line": 2,
+                          "isTerminator": 1
+                        }
+                      ],
+                      "line": 2,
+                      "isTerminator": 0,
+                      "type": {
+                        "name": "integer",
+                        "width": 4
+                      },
+                      "width": 4
+                    }
+                  ],
+                  "line": 2,
+                  "isTerminator": 0,
+                  "type": {
+                    "name": "integer",
                     "width": 4
                   },
                   "width": 4
                 },
                 {
                   "flag": 0,
-                  "res": "<85, a>",
+                  "res": "<85, b>",
                   "type": "85",
-                  "end": 7,
-                  "line": 1,
-                  "begin": 7,
+                  "end": 11,
+                  "line": 2,
+                  "begin": 11,
                   "info": "标识符",
                   "typeName": "id",
-                  "lexical": "a",
+                  "lexical": "b",
                   "index": "4",
                   "isTerminator": 1
                 },
@@ -164,9 +207,9 @@
                   "flag": 0,
                   "res": "<76, ;>",
                   "type": "76",
-                  "end": 8,
-                  "line": 1,
-                  "begin": 8,
+                  "end": 12,
+                  "line": 2,
+                  "begin": 12,
                   "info": "界符",
                   "typeName": ";",
                   "lexical": ";",
@@ -174,7 +217,7 @@
                   "isTerminator": 1
                 }
               ],
-              "line": 1,
+              "line": 2,
               "isTerminator": 0
             }
           ],
@@ -194,9 +237,9 @@
                       "flag": 0,
                       "res": "<8, int>",
                       "type": "8",
-                      "end": 12,
-                      "line": 2,
-                      "begin": 10,
+                      "end": 16,
+                      "line": 3,
+                      "begin": 14,
                       "info": "关键字",
                       "typeName": "integer",
                       "lexical": "int",
@@ -204,7 +247,7 @@
                       "isTerminator": 1
                     }
                   ],
-                  "line": 2,
+                  "line": 3,
                   "isTerminator": 0,
                   "type": {
                     "name": "integer",
@@ -219,11 +262,11 @@
                       "type": "-2",
                       "typeName": "nil",
                       "lexical": "nil",
-                      "line": 2,
+                      "line": 3,
                       "isTerminator": 1
                     }
                   ],
-                  "line": 2,
+                  "line": 3,
                   "isTerminator": 0
                 },
                 {
@@ -233,11 +276,11 @@
                       "type": "-2",
                       "typeName": "nil",
                       "lexical": "nil",
-                      "line": 2,
+                      "line": 3,
                       "isTerminator": 1
                     }
                   ],
-                  "line": 2,
+                  "line": 3,
                   "isTerminator": 0,
                   "type": {
                     "name": "integer",
@@ -246,7 +289,7 @@
                   "width": 4
                 }
               ],
-              "line": 2,
+              "line": 3,
               "isTerminator": 0,
               "type": {
                 "name": "integer",
@@ -256,32 +299,692 @@
             },
             {
               "flag": 0,
-              "res": "<85, b>",
+              "res": "<85, main>",
               "type": "85",
-              "end": 14,
-              "line": 2,
-              "begin": 14,
+              "end": 21,
+              "line": 3,
+              "begin": 18,
               "info": "标识符",
               "typeName": "id",
-              "lexical": "b",
+              "lexical": "main",
               "index": "7",
               "isTerminator": 1
             },
             {
+              "typeName": "FN",
+              "next": [
+                {
+                  "type": "-2",
+                  "typeName": "nil",
+                  "lexical": "nil",
+                  "line": 3,
+                  "isTerminator": 1
+                }
+              ],
+              "line": 3,
+              "isTerminator": 0
+            },
+            {
               "flag": 0,
-              "res": "<76, ;>",
-              "type": "76",
-              "end": 15,
-              "line": 2,
-              "begin": 15,
+              "res": "<70, (>",
+              "type": "70",
+              "end": 22,
+              "line": 3,
+              "begin": 22,
               "info": "界符",
-              "typeName": ";",
-              "lexical": ";",
+              "typeName": "(",
+              "lexical": "(",
               "index": "8",
+              "isTerminator": 1
+            },
+            {
+              "typeName": "Flist",
+              "next": [
+                {
+                  "typeName": "T",
+                  "next": [
+                    {
+                      "typeName": "B",
+                      "next": [
+                        {
+                          "flag": 0,
+                          "res": "<8, int>",
+                          "type": "8",
+                          "end": 25,
+                          "line": 3,
+                          "begin": 23,
+                          "info": "关键字",
+                          "typeName": "integer",
+                          "lexical": "int",
+                          "index": "9",
+                          "isTerminator": 1
+                        }
+                      ],
+                      "line": 3,
+                      "isTerminator": 0,
+                      "type": {
+                        "name": "integer",
+                        "width": 4
+                      },
+                      "width": 4
+                    },
+                    {
+                      "typeName": "nT1",
+                      "next": [
+                        {
+                          "type": "-2",
+                          "typeName": "nil",
+                          "lexical": "nil",
+                          "line": 3,
+                          "isTerminator": 1
+                        }
+                      ],
+                      "line": 3,
+                      "isTerminator": 0
+                    },
+                    {
+                      "typeName": "C",
+                      "next": [
+                        {
+                          "type": "-2",
+                          "typeName": "nil",
+                          "lexical": "nil",
+                          "line": 3,
+                          "isTerminator": 1
+                        }
+                      ],
+                      "line": 3,
+                      "isTerminator": 0,
+                      "type": {
+                        "name": "integer",
+                        "width": 4
+                      },
+                      "width": 4
+                    }
+                  ],
+                  "line": 3,
+                  "isTerminator": 0,
+                  "type": {
+                    "name": "integer",
+                    "width": 4
+                  },
+                  "width": 4
+                },
+                {
+                  "flag": 0,
+                  "res": "<85, a>",
+                  "type": "85",
+                  "end": 27,
+                  "line": 3,
+                  "begin": 27,
+                  "info": "标识符",
+                  "typeName": "id",
+                  "lexical": "a",
+                  "index": "10",
+                  "isTerminator": 1
+                }
+              ],
+              "line": 3,
+              "isTerminator": 0
+            },
+            {
+              "flag": 0,
+              "res": "<71, )>",
+              "type": "71",
+              "end": 28,
+              "line": 3,
+              "begin": 28,
+              "info": "界符",
+              "typeName": ")",
+              "lexical": ")",
+              "index": "11",
+              "isTerminator": 1
+            },
+            {
+              "flag": 0,
+              "res": "<74, {>",
+              "type": "74",
+              "end": 30,
+              "line": 3,
+              "begin": 30,
+              "info": "界符",
+              "typeName": "{",
+              "lexical": "{",
+              "index": "12",
+              "isTerminator": 1
+            },
+            {
+              "typeName": "D",
+              "next": [
+                {
+                  "typeName": "Da",
+                  "next": [
+                    {
+                      "typeName": "T",
+                      "next": [
+                        {
+                          "typeName": "B",
+                          "next": [
+                            {
+                              "flag": 0,
+                              "res": "<8, int>",
+                              "type": "8",
+                              "end": 38,
+                              "line": 4,
+                              "begin": 36,
+                              "info": "关键字",
+                              "typeName": "integer",
+                              "lexical": "int",
+                              "index": "13",
+                              "isTerminator": 1
+                            }
+                          ],
+                          "line": 4,
+                          "isTerminator": 0,
+                          "type": {
+                            "name": "integer",
+                            "width": 4
+                          },
+                          "width": 4
+                        },
+                        {
+                          "typeName": "nT1",
+                          "next": [
+                            {
+                              "type": "-2",
+                              "typeName": "nil",
+                              "lexical": "nil",
+                              "line": 4,
+                              "isTerminator": 1
+                            }
+                          ],
+                          "line": 4,
+                          "isTerminator": 0
+                        },
+                        {
+                          "typeName": "C",
+                          "next": [
+                            {
+                              "type": "-2",
+                              "typeName": "nil",
+                              "lexical": "nil",
+                              "line": 4,
+                              "isTerminator": 1
+                            }
+                          ],
+                          "line": 4,
+                          "isTerminator": 0,
+                          "type": {
+                            "name": "integer",
+                            "width": 4
+                          },
+                          "width": 4
+                        }
+                      ],
+                      "line": 4,
+                      "isTerminator": 0,
+                      "type": {
+                        "name": "integer",
+                        "width": 4
+                      },
+                      "width": 4
+                    },
+                    {
+                      "flag": 0,
+                      "res": "<85, b>",
+                      "type": "85",
+                      "end": 40,
+                      "line": 4,
+                      "begin": 40,
+                      "info": "标识符",
+                      "typeName": "id",
+                      "lexical": "b",
+                      "index": "14",
+                      "isTerminator": 1
+                    },
+                    {
+                      "flag": 0,
+                      "res": "<76, ;>",
+                      "type": "76",
+                      "end": 41,
+                      "line": 4,
+                      "begin": 41,
+                      "info": "界符",
+                      "typeName": ";",
+                      "lexical": ";",
+                      "index": "15",
+                      "isTerminator": 1
+                    }
+                  ],
+                  "line": 4,
+                  "isTerminator": 0
+                }
+              ],
+              "line": 4,
+              "isTerminator": 0
+            },
+            {
+              "typeName": "S",
+              "next": [
+                {
+                  "typeName": "S",
+                  "next": [
+                    {
+                      "typeName": "Sa",
+                      "next": [
+                        {
+                          "typeName": "A",
+                          "next": [
+                            {
+                              "flag": 0,
+                              "res": "<85, b>",
+                              "type": "85",
+                              "end": 47,
+                              "line": 5,
+                              "begin": 47,
+                              "info": "标识符",
+                              "typeName": "id",
+                              "lexical": "b",
+                              "index": "16",
+                              "isTerminator": 1
+                            },
+                            {
+                              "flag": 0,
+                              "res": "<57, =>",
+                              "type": "57",
+                              "end": 49,
+                              "line": 5,
+                              "begin": 49,
+                              "info": "运算符",
+                              "typeName": "=",
+                              "lexical": "=",
+                              "index": "17",
+                              "isTerminator": 1
+                            },
+                            {
+                              "typeName": "E",
+                              "next": [
+                                {
+                                  "typeName": "E",
+                                  "next": [
+                                    {
+                                      "typeName": "Ea",
+                                      "next": [
+                                        {
+                                          "typeName": "R",
+                                          "next": [
+                                            {
+                                              "typeName": "Ra",
+                                              "next": [
+                                                {
+                                                  "typeName": "Y",
+                                                  "next": [
+                                                    {
+                                                      "flag": 0,
+                                                      "res": "<85, a>",
+                                                      "type": "85",
+                                                      "end": 51,
+                                                      "line": 5,
+                                                      "begin": 51,
+                                                      "info": "标识符",
+                                                      "typeName": "id",
+                                                      "lexical": "a",
+                                                      "index": "18",
+                                                      "isTerminator": 1
+                                                    }
+                                                  ],
+                                                  "line": 5,
+                                                  "isTerminator": 0,
+                                                  "addr": {
+                                                    "id": "a",
+                                                    "type": {
+                                                      "name": "integer",
+                                                      "width": 4
+                                                    },
+                                                    "width": 4,
+                                                    "offset": 0
+                                                  }
+                                                }
+                                              ],
+                                              "line": 5,
+                                              "isTerminator": 0,
+                                              "addr": {
+                                                "id": "a",
+                                                "type": {
+                                                  "name": "integer",
+                                                  "width": 4
+                                                },
+                                                "width": 4,
+                                                "offset": 0
+                                              }
+                                            }
+                                          ],
+                                          "line": 5,
+                                          "isTerminator": 0,
+                                          "addr": {
+                                            "id": "a",
+                                            "type": {
+                                              "name": "integer",
+                                              "width": 4
+                                            },
+                                            "width": 4,
+                                            "offset": 0
+                                          }
+                                        }
+                                      ],
+                                      "line": 5,
+                                      "isTerminator": 0,
+                                      "addr": {
+                                        "id": "a",
+                                        "type": {
+                                          "name": "integer",
+                                          "width": 4
+                                        },
+                                        "width": 4,
+                                        "offset": 0
+                                      }
+                                    }
+                                  ],
+                                  "line": 5,
+                                  "isTerminator": 0,
+                                  "addr": {
+                                    "id": "a",
+                                    "type": {
+                                      "name": "integer",
+                                      "width": 4
+                                    },
+                                    "width": 4,
+                                    "offset": 0
+                                  }
+                                },
+                                {
+                                  "flag": 0,
+                                  "res": "<37, +>",
+                                  "type": "37",
+                                  "end": 53,
+                                  "line": 5,
+                                  "begin": 53,
+                                  "info": "运算符",
+                                  "typeName": "+",
+                                  "lexical": "+",
+                                  "index": "19",
+                                  "isTerminator": 1
+                                },
+                                {
+                                  "typeName": "Ea",
+                                  "next": [
+                                    {
+                                      "typeName": "R",
+                                      "next": [
+                                        {
+                                          "typeName": "Ra",
+                                          "next": [
+                                            {
+                                              "typeName": "Y",
+                                              "next": [
+                                                {
+                                                  "flag": 0,
+                                                  "res": "<80, 1>",
+                                                  "type": "80",
+                                                  "end": 55,
+                                                  "line": 5,
+                                                  "begin": 55,
+                                                  "info": "常数",
+                                                  "typeName": "num",
+                                                  "lexical": "1",
+                                                  "index": "20",
+                                                  "isTerminator": 1
+                                                }
+                                              ],
+                                              "line": 5,
+                                              "isTerminator": 0,
+                                              "addr": {
+                                                "id": "1",
+                                                "type": {
+                                                  "name": "integer",
+                                                  "width": 4
+                                                },
+                                                "width": 4
+                                              }
+                                            }
+                                          ],
+                                          "line": 5,
+                                          "isTerminator": 0,
+                                          "addr": {
+                                            "id": "1",
+                                            "type": {
+                                              "name": "integer",
+                                              "width": 4
+                                            },
+                                            "width": 4
+                                          }
+                                        }
+                                      ],
+                                      "line": 5,
+                                      "isTerminator": 0,
+                                      "addr": {
+                                        "id": "1",
+                                        "type": {
+                                          "name": "integer",
+                                          "width": 4
+                                        },
+                                        "width": 4
+                                      }
+                                    }
+                                  ],
+                                  "line": 5,
+                                  "isTerminator": 0,
+                                  "addr": {
+                                    "id": "1",
+                                    "type": {
+                                      "name": "integer",
+                                      "width": 4
+                                    },
+                                    "width": 4
+                                  }
+                                }
+                              ],
+                              "line": 5,
+                              "isTerminator": 0,
+                              "addr": {
+                                "id": "t_2",
+                                "type": {
+                                  "name": "integer",
+                                  "width": 4
+                                },
+                                "width": 4,
+                                "offset": 8
+                              }
+                            }
+                          ],
+                          "line": 5,
+                          "isTerminator": 0
+                        },
+                        {
+                          "flag": 0,
+                          "res": "<76, ;>",
+                          "type": "76",
+                          "end": 56,
+                          "line": 5,
+                          "begin": 56,
+                          "info": "界符",
+                          "typeName": ";",
+                          "lexical": ";",
+                          "index": "21",
+                          "isTerminator": 1
+                        }
+                      ],
+                      "line": 5,
+                      "isTerminator": 0,
+                      "nextlist": []
+                    }
+                  ],
+                  "line": 5,
+                  "isTerminator": 0,
+                  "nextlist": []
+                },
+                {
+                  "typeName": "M",
+                  "next": [
+                    {
+                      "type": "-2",
+                      "typeName": "nil",
+                      "lexical": "nil",
+                      "line": 6,
+                      "isTerminator": 1
+                    }
+                  ],
+                  "line": 6,
+                  "isTerminator": 0,
+                  "instr": 2
+                },
+                {
+                  "typeName": "Sa",
+                  "next": [
+                    {
+                      "flag": 0,
+                      "res": "<19, return>",
+                      "type": "19",
+                      "end": 67,
+                      "line": 6,
+                      "begin": 62,
+                      "info": "关键字",
+                      "typeName": "return",
+                      "lexical": "return",
+                      "index": "22",
+                      "isTerminator": 1
+                    },
+                    {
+                      "typeName": "E",
+                      "next": [
+                        {
+                          "typeName": "Ea",
+                          "next": [
+                            {
+                              "typeName": "R",
+                              "next": [
+                                {
+                                  "typeName": "Ra",
+                                  "next": [
+                                    {
+                                      "typeName": "Y",
+                                      "next": [
+                                        {
+                                          "flag": 0,
+                                          "res": "<85, b>",
+                                          "type": "85",
+                                          "end": 69,
+                                          "line": 6,
+                                          "begin": 69,
+                                          "info": "标识符",
+                                          "typeName": "id",
+                                          "lexical": "b",
+                                          "index": "23",
+                                          "isTerminator": 1
+                                        }
+                                      ],
+                                      "line": 6,
+                                      "isTerminator": 0,
+                                      "addr": {
+                                        "id": "b",
+                                        "type": {
+                                          "name": "integer",
+                                          "width": 4
+                                        },
+                                        "width": 4,
+                                        "offset": 4
+                                      }
+                                    }
+                                  ],
+                                  "line": 6,
+                                  "isTerminator": 0,
+                                  "addr": {
+                                    "id": "b",
+                                    "type": {
+                                      "name": "integer",
+                                      "width": 4
+                                    },
+                                    "width": 4,
+                                    "offset": 4
+                                  }
+                                }
+                              ],
+                              "line": 6,
+                              "isTerminator": 0,
+                              "addr": {
+                                "id": "b",
+                                "type": {
+                                  "name": "integer",
+                                  "width": 4
+                                },
+                                "width": 4,
+                                "offset": 4
+                              }
+                            }
+                          ],
+                          "line": 6,
+                          "isTerminator": 0,
+                          "addr": {
+                            "id": "b",
+                            "type": {
+                              "name": "integer",
+                              "width": 4
+                            },
+                            "width": 4,
+                            "offset": 4
+                          }
+                        }
+                      ],
+                      "line": 6,
+                      "isTerminator": 0,
+                      "addr": {
+                        "id": "b",
+                        "type": {
+                          "name": "integer",
+                          "width": 4
+                        },
+                        "width": 4,
+                        "offset": 4
+                      }
+                    },
+                    {
+                      "flag": 0,
+                      "res": "<76, ;>",
+                      "type": "76",
+                      "end": 70,
+                      "line": 6,
+                      "begin": 70,
+                      "info": "界符",
+                      "typeName": ";",
+                      "lexical": ";",
+                      "index": "24",
+                      "isTerminator": 1
+                    }
+                  ],
+                  "line": 6,
+                  "isTerminator": 0,
+                  "nextlist": []
+                }
+              ],
+              "line": 5,
+              "isTerminator": 0,
+              "nextlist": []
+            },
+            {
+              "flag": 0,
+              "res": "<75, }>",
+              "type": "75",
+              "end": 72,
+              "line": 7,
+              "begin": 72,
+              "info": "界符",
+              "typeName": "}",
+              "lexical": "}",
+              "index": "25",
               "isTerminator": 1
             }
           ],
-          "line": 2,
+          "line": 3,
           "isTerminator": 0
         }
       ],
@@ -292,13 +995,1368 @@
       "typeName": "S",
       "next": [
         {
-          "type": "-2",
-          "typeName": "nil",
-          "lexical": "nil",
-          "isTerminator": 1
+          "typeName": "S",
+          "next": [
+            {
+              "typeName": "S",
+              "next": [
+                {
+                  "typeName": "Sa",
+                  "next": [
+                    {
+                      "typeName": "A",
+                      "next": [
+                        {
+                          "flag": 0,
+                          "res": "<85, a>",
+                          "type": "85",
+                          "end": 74,
+                          "line": 8,
+                          "begin": 74,
+                          "info": "标识符",
+                          "typeName": "id",
+                          "lexical": "a",
+                          "index": "26",
+                          "isTerminator": 1
+                        },
+                        {
+                          "flag": 0,
+                          "res": "<57, =>",
+                          "type": "57",
+                          "end": 76,
+                          "line": 8,
+                          "begin": 76,
+                          "info": "运算符",
+                          "typeName": "=",
+                          "lexical": "=",
+                          "index": "27",
+                          "isTerminator": 1
+                        },
+                        {
+                          "typeName": "E",
+                          "next": [
+                            {
+                              "typeName": "Ea",
+                              "next": [
+                                {
+                                  "typeName": "R",
+                                  "next": [
+                                    {
+                                      "typeName": "Ra",
+                                      "next": [
+                                        {
+                                          "typeName": "Y",
+                                          "next": [
+                                            {
+                                              "flag": 0,
+                                              "res": "<80, 3>",
+                                              "type": "80",
+                                              "end": 78,
+                                              "line": 8,
+                                              "begin": 78,
+                                              "info": "常数",
+                                              "typeName": "num",
+                                              "lexical": "3",
+                                              "index": "28",
+                                              "isTerminator": 1
+                                            }
+                                          ],
+                                          "line": 8,
+                                          "isTerminator": 0,
+                                          "addr": {
+                                            "id": "3",
+                                            "type": {
+                                              "name": "integer",
+                                              "width": 4
+                                            },
+                                            "width": 4
+                                          }
+                                        }
+                                      ],
+                                      "line": 8,
+                                      "isTerminator": 0,
+                                      "addr": {
+                                        "id": "3",
+                                        "type": {
+                                          "name": "integer",
+                                          "width": 4
+                                        },
+                                        "width": 4
+                                      }
+                                    }
+                                  ],
+                                  "line": 8,
+                                  "isTerminator": 0,
+                                  "addr": {
+                                    "id": "3",
+                                    "type": {
+                                      "name": "integer",
+                                      "width": 4
+                                    },
+                                    "width": 4
+                                  }
+                                }
+                              ],
+                              "line": 8,
+                              "isTerminator": 0,
+                              "addr": {
+                                "id": "3",
+                                "type": {
+                                  "name": "integer",
+                                  "width": 4
+                                },
+                                "width": 4
+                              }
+                            }
+                          ],
+                          "line": 8,
+                          "isTerminator": 0,
+                          "addr": {
+                            "id": "3",
+                            "type": {
+                              "name": "integer",
+                              "width": 4
+                            },
+                            "width": 4
+                          }
+                        }
+                      ],
+                      "line": 8,
+                      "isTerminator": 0
+                    },
+                    {
+                      "flag": 0,
+                      "res": "<76, ;>",
+                      "type": "76",
+                      "end": 79,
+                      "line": 8,
+                      "begin": 79,
+                      "info": "界符",
+                      "typeName": ";",
+                      "lexical": ";",
+                      "index": "29",
+                      "isTerminator": 1
+                    }
+                  ],
+                  "line": 8,
+                  "isTerminator": 0,
+                  "nextlist": []
+                }
+              ],
+              "line": 8,
+              "isTerminator": 0,
+              "nextlist": []
+            },
+            {
+              "typeName": "M",
+              "next": [
+                {
+                  "type": "-2",
+                  "typeName": "nil",
+                  "lexical": "nil",
+                  "line": 9,
+                  "isTerminator": 1
+                }
+              ],
+              "line": 9,
+              "isTerminator": 0,
+              "instr": 1
+            },
+            {
+              "typeName": "Sa",
+              "next": [
+                {
+                  "typeName": "A",
+                  "next": [
+                    {
+                      "flag": 0,
+                      "res": "<85, b>",
+                      "type": "85",
+                      "end": 81,
+                      "line": 9,
+                      "begin": 81,
+                      "info": "标识符",
+                      "typeName": "id",
+                      "lexical": "b",
+                      "index": "30",
+                      "isTerminator": 1
+                    },
+                    {
+                      "flag": 0,
+                      "res": "<57, =>",
+                      "type": "57",
+                      "end": 83,
+                      "line": 9,
+                      "begin": 83,
+                      "info": "运算符",
+                      "typeName": "=",
+                      "lexical": "=",
+                      "index": "31",
+                      "isTerminator": 1
+                    },
+                    {
+                      "typeName": "E",
+                      "next": [
+                        {
+                          "typeName": "E",
+                          "next": [
+                            {
+                              "typeName": "Ea",
+                              "next": [
+                                {
+                                  "typeName": "R",
+                                  "next": [
+                                    {
+                                      "typeName": "Ra",
+                                      "next": [
+                                        {
+                                          "typeName": "Y",
+                                          "next": [
+                                            {
+                                              "flag": 0,
+                                              "res": "<80, 1>",
+                                              "type": "80",
+                                              "end": 85,
+                                              "line": 9,
+                                              "begin": 85,
+                                              "info": "常数",
+                                              "typeName": "num",
+                                              "lexical": "1",
+                                              "index": "32",
+                                              "isTerminator": 1
+                                            }
+                                          ],
+                                          "line": 9,
+                                          "isTerminator": 0,
+                                          "addr": {
+                                            "id": "1",
+                                            "type": {
+                                              "name": "integer",
+                                              "width": 4
+                                            },
+                                            "width": 4
+                                          }
+                                        }
+                                      ],
+                                      "line": 9,
+                                      "isTerminator": 0,
+                                      "addr": {
+                                        "id": "1",
+                                        "type": {
+                                          "name": "integer",
+                                          "width": 4
+                                        },
+                                        "width": 4
+                                      }
+                                    }
+                                  ],
+                                  "line": 9,
+                                  "isTerminator": 0,
+                                  "addr": {
+                                    "id": "1",
+                                    "type": {
+                                      "name": "integer",
+                                      "width": 4
+                                    },
+                                    "width": 4
+                                  }
+                                }
+                              ],
+                              "line": 9,
+                              "isTerminator": 0,
+                              "addr": {
+                                "id": "1",
+                                "type": {
+                                  "name": "integer",
+                                  "width": 4
+                                },
+                                "width": 4
+                              }
+                            }
+                          ],
+                          "line": 9,
+                          "isTerminator": 0,
+                          "addr": {
+                            "id": "1",
+                            "type": {
+                              "name": "integer",
+                              "width": 4
+                            },
+                            "width": 4
+                          }
+                        },
+                        {
+                          "flag": 0,
+                          "res": "<37, +>",
+                          "type": "37",
+                          "end": 87,
+                          "line": 9,
+                          "begin": 87,
+                          "info": "运算符",
+                          "typeName": "+",
+                          "lexical": "+",
+                          "index": "33",
+                          "isTerminator": 1
+                        },
+                        {
+                          "typeName": "Ea",
+                          "next": [
+                            {
+                              "typeName": "R",
+                              "next": [
+                                {
+                                  "typeName": "Ra",
+                                  "next": [
+                                    {
+                                      "typeName": "Y",
+                                      "next": [
+                                        {
+                                          "typeName": "Ef",
+                                          "next": [
+                                            {
+                                              "flag": 0,
+                                              "res": "<85, main>",
+                                              "type": "85",
+                                              "end": 92,
+                                              "line": 9,
+                                              "begin": 89,
+                                              "info": "标识符",
+                                              "typeName": "id",
+                                              "lexical": "main",
+                                              "index": "34",
+                                              "isTerminator": 1
+                                            },
+                                            {
+                                              "flag": 0,
+                                              "res": "<70, (>",
+                                              "type": "70",
+                                              "end": 93,
+                                              "line": 9,
+                                              "begin": 93,
+                                              "info": "界符",
+                                              "typeName": "(",
+                                              "lexical": "(",
+                                              "index": "35",
+                                              "isTerminator": 1
+                                            },
+                                            {
+                                              "typeName": "Elist",
+                                              "next": [
+                                                {
+                                                  "typeName": "E",
+                                                  "next": [
+                                                    {
+                                                      "typeName": "Ea",
+                                                      "next": [
+                                                        {
+                                                          "typeName": "R",
+                                                          "next": [
+                                                            {
+                                                              "typeName": "Ra",
+                                                              "next": [
+                                                                {
+                                                                  "typeName": "Y",
+                                                                  "next": [
+                                                                    {
+                                                                      "flag": 0,
+                                                                      "res": "<85, a>",
+                                                                      "type": "85",
+                                                                      "end": 94,
+                                                                      "line": 9,
+                                                                      "begin": 94,
+                                                                      "info": "标识符",
+                                                                      "typeName": "id",
+                                                                      "lexical": "a",
+                                                                      "index": "36",
+                                                                      "isTerminator": 1
+                                                                    }
+                                                                  ],
+                                                                  "line": 9,
+                                                                  "isTerminator": 0,
+                                                                  "addr": {
+                                                                    "id": "a",
+                                                                    "type": {
+                                                                      "name": "integer",
+                                                                      "width": 4
+                                                                    },
+                                                                    "width": 4,
+                                                                    "offset": 0
+                                                                  }
+                                                                }
+                                                              ],
+                                                              "line": 9,
+                                                              "isTerminator": 0,
+                                                              "addr": {
+                                                                "id": "a",
+                                                                "type": {
+                                                                  "name": "integer",
+                                                                  "width": 4
+                                                                },
+                                                                "width": 4,
+                                                                "offset": 0
+                                                              }
+                                                            }
+                                                          ],
+                                                          "line": 9,
+                                                          "isTerminator": 0,
+                                                          "addr": {
+                                                            "id": "a",
+                                                            "type": {
+                                                              "name": "integer",
+                                                              "width": 4
+                                                            },
+                                                            "width": 4,
+                                                            "offset": 0
+                                                          }
+                                                        }
+                                                      ],
+                                                      "line": 9,
+                                                      "isTerminator": 0,
+                                                      "addr": {
+                                                        "id": "a",
+                                                        "type": {
+                                                          "name": "integer",
+                                                          "width": 4
+                                                        },
+                                                        "width": 4,
+                                                        "offset": 0
+                                                      }
+                                                    }
+                                                  ],
+                                                  "line": 9,
+                                                  "isTerminator": 0,
+                                                  "addr": {
+                                                    "id": "a",
+                                                    "type": {
+                                                      "name": "integer",
+                                                      "width": 4
+                                                    },
+                                                    "width": 4,
+                                                    "offset": 0
+                                                  }
+                                                }
+                                              ],
+                                              "line": 9,
+                                              "isTerminator": 0
+                                            },
+                                            {
+                                              "flag": 0,
+                                              "res": "<71, )>",
+                                              "type": "71",
+                                              "end": 95,
+                                              "line": 9,
+                                              "begin": 95,
+                                              "info": "界符",
+                                              "typeName": ")",
+                                              "lexical": ")",
+                                              "index": "37",
+                                              "isTerminator": 1
+                                            }
+                                          ],
+                                          "line": 9,
+                                          "isTerminator": 0,
+                                          "addr": {
+                                            "id": "t_3",
+                                            "type": {
+                                              "name": "integer",
+                                              "width": 4
+                                            },
+                                            "width": 4,
+                                            "offset": 20
+                                          }
+                                        }
+                                      ],
+                                      "line": 9,
+                                      "isTerminator": 0,
+                                      "addr": {
+                                        "id": "t_3",
+                                        "type": {
+                                          "name": "integer",
+                                          "width": 4
+                                        },
+                                        "width": 4,
+                                        "offset": 20
+                                      }
+                                    }
+                                  ],
+                                  "line": 9,
+                                  "isTerminator": 0,
+                                  "addr": {
+                                    "id": "t_3",
+                                    "type": {
+                                      "name": "integer",
+                                      "width": 4
+                                    },
+                                    "width": 4,
+                                    "offset": 20
+                                  }
+                                }
+                              ],
+                              "line": 9,
+                              "isTerminator": 0,
+                              "addr": {
+                                "id": "t_3",
+                                "type": {
+                                  "name": "integer",
+                                  "width": 4
+                                },
+                                "width": 4,
+                                "offset": 20
+                              }
+                            }
+                          ],
+                          "line": 9,
+                          "isTerminator": 0,
+                          "addr": {
+                            "id": "t_3",
+                            "type": {
+                              "name": "integer",
+                              "width": 4
+                            },
+                            "width": 4,
+                            "offset": 20
+                          }
+                        }
+                      ],
+                      "line": 9,
+                      "isTerminator": 0,
+                      "addr": {
+                        "id": "t_4",
+                        "type": {
+                          "name": "integer",
+                          "width": 4
+                        },
+                        "width": 4,
+                        "offset": 24
+                      }
+                    }
+                  ],
+                  "line": 9,
+                  "isTerminator": 0
+                },
+                {
+                  "flag": 0,
+                  "res": "<76, ;>",
+                  "type": "76",
+                  "end": 96,
+                  "line": 9,
+                  "begin": 96,
+                  "info": "界符",
+                  "typeName": ";",
+                  "lexical": ";",
+                  "index": "38",
+                  "isTerminator": 1
+                }
+              ],
+              "line": 9,
+              "isTerminator": 0,
+              "nextlist": []
+            }
+          ],
+          "line": 8,
+          "isTerminator": 0,
+          "nextlist": []
+        },
+        {
+          "typeName": "M",
+          "next": [
+            {
+              "type": "-2",
+              "typeName": "nil",
+              "lexical": "nil",
+              "line": 10,
+              "isTerminator": 1
+            }
+          ],
+          "line": 10,
+          "isTerminator": 0,
+          "instr": 5
+        },
+        {
+          "typeName": "Sa",
+          "next": [
+            {
+              "flag": 0,
+              "res": "<3, if>",
+              "type": "3",
+              "end": 99,
+              "line": 10,
+              "begin": 98,
+              "info": "关键字",
+              "typeName": "if",
+              "lexical": "if",
+              "index": "39",
+              "isTerminator": 1
+            },
+            {
+              "flag": 0,
+              "res": "<70, (>",
+              "type": "70",
+              "end": 101,
+              "line": 10,
+              "begin": 101,
+              "info": "界符",
+              "typeName": "(",
+              "lexical": "(",
+              "index": "40",
+              "isTerminator": 1
+            },
+            {
+              "typeName": "Bo",
+              "next": [
+                {
+                  "typeName": "Boa",
+                  "next": [
+                    {
+                      "typeName": "BN",
+                      "next": [
+                        {
+                          "typeName": "BNa",
+                          "next": [
+                            {
+                              "typeName": "BM",
+                              "next": [
+                                {
+                                  "typeName": "E",
+                                  "next": [
+                                    {
+                                      "typeName": "Ea",
+                                      "next": [
+                                        {
+                                          "typeName": "R",
+                                          "next": [
+                                            {
+                                              "typeName": "Ra",
+                                              "next": [
+                                                {
+                                                  "typeName": "Y",
+                                                  "next": [
+                                                    {
+                                                      "flag": 0,
+                                                      "res": "<85, b>",
+                                                      "type": "85",
+                                                      "end": 102,
+                                                      "line": 10,
+                                                      "begin": 102,
+                                                      "info": "标识符",
+                                                      "typeName": "id",
+                                                      "lexical": "b",
+                                                      "index": "41",
+                                                      "isTerminator": 1
+                                                    }
+                                                  ],
+                                                  "line": 10,
+                                                  "isTerminator": 0,
+                                                  "addr": {
+                                                    "id": "b",
+                                                    "type": {
+                                                      "name": "integer",
+                                                      "width": 4
+                                                    },
+                                                    "width": 4,
+                                                    "offset": 4
+                                                  }
+                                                }
+                                              ],
+                                              "line": 10,
+                                              "isTerminator": 0,
+                                              "addr": {
+                                                "id": "b",
+                                                "type": {
+                                                  "name": "integer",
+                                                  "width": 4
+                                                },
+                                                "width": 4,
+                                                "offset": 4
+                                              }
+                                            }
+                                          ],
+                                          "line": 10,
+                                          "isTerminator": 0,
+                                          "addr": {
+                                            "id": "b",
+                                            "type": {
+                                              "name": "integer",
+                                              "width": 4
+                                            },
+                                            "width": 4,
+                                            "offset": 4
+                                          }
+                                        }
+                                      ],
+                                      "line": 10,
+                                      "isTerminator": 0,
+                                      "addr": {
+                                        "id": "b",
+                                        "type": {
+                                          "name": "integer",
+                                          "width": 4
+                                        },
+                                        "width": 4,
+                                        "offset": 4
+                                      }
+                                    }
+                                  ],
+                                  "line": 10,
+                                  "isTerminator": 0,
+                                  "addr": {
+                                    "id": "b",
+                                    "type": {
+                                      "name": "integer",
+                                      "width": 4
+                                    },
+                                    "width": 4,
+                                    "offset": 4
+                                  }
+                                },
+                                {
+                                  "typeName": "relop",
+                                  "next": [
+                                    {
+                                      "flag": 0,
+                                      "res": "<42, <>",
+                                      "type": "42",
+                                      "end": 104,
+                                      "line": 10,
+                                      "begin": 104,
+                                      "info": "运算符",
+                                      "typeName": "<",
+                                      "lexical": "<",
+                                      "index": "42",
+                                      "isTerminator": 1
+                                    }
+                                  ],
+                                  "line": 10,
+                                  "isTerminator": 0,
+                                  "addr": {
+                                    "id": "<"
+                                  }
+                                },
+                                {
+                                  "typeName": "E",
+                                  "next": [
+                                    {
+                                      "typeName": "Ea",
+                                      "next": [
+                                        {
+                                          "typeName": "R",
+                                          "next": [
+                                            {
+                                              "typeName": "Ra",
+                                              "next": [
+                                                {
+                                                  "typeName": "Y",
+                                                  "next": [
+                                                    {
+                                                      "flag": 0,
+                                                      "res": "<80, 0>",
+                                                      "type": "80",
+                                                      "end": 106,
+                                                      "line": 10,
+                                                      "begin": 106,
+                                                      "info": "常数",
+                                                      "typeName": "num",
+                                                      "lexical": "0",
+                                                      "index": "43",
+                                                      "isTerminator": 1
+                                                    }
+                                                  ],
+                                                  "line": 10,
+                                                  "isTerminator": 0,
+                                                  "addr": {
+                                                    "id": "0",
+                                                    "type": {
+                                                      "name": "integer",
+                                                      "width": 4
+                                                    },
+                                                    "width": 4
+                                                  }
+                                                }
+                                              ],
+                                              "line": 10,
+                                              "isTerminator": 0,
+                                              "addr": {
+                                                "id": "0",
+                                                "type": {
+                                                  "name": "integer",
+                                                  "width": 4
+                                                },
+                                                "width": 4
+                                              }
+                                            }
+                                          ],
+                                          "line": 10,
+                                          "isTerminator": 0,
+                                          "addr": {
+                                            "id": "0",
+                                            "type": {
+                                              "name": "integer",
+                                              "width": 4
+                                            },
+                                            "width": 4
+                                          }
+                                        }
+                                      ],
+                                      "line": 10,
+                                      "isTerminator": 0,
+                                      "addr": {
+                                        "id": "0",
+                                        "type": {
+                                          "name": "integer",
+                                          "width": 4
+                                        },
+                                        "width": 4
+                                      }
+                                    }
+                                  ],
+                                  "line": 10,
+                                  "isTerminator": 0,
+                                  "addr": {
+                                    "id": "0",
+                                    "type": {
+                                      "name": "integer",
+                                      "width": 4
+                                    },
+                                    "width": 4
+                                  }
+                                }
+                              ],
+                              "line": 10,
+                              "isTerminator": 0,
+                              "truelist": [
+                                5
+                              ],
+                              "falselist": [
+                                6
+                              ]
+                            }
+                          ],
+                          "line": 10,
+                          "isTerminator": 0,
+                          "truelist": [
+                            5
+                          ],
+                          "falselist": [
+                            6
+                          ]
+                        }
+                      ],
+                      "line": 10,
+                      "isTerminator": 0,
+                      "truelist": [
+                        5
+                      ],
+                      "falselist": [
+                        6
+                      ]
+                    }
+                  ],
+                  "line": 10,
+                  "isTerminator": 0,
+                  "truelist": [
+                    5
+                  ],
+                  "falselist": [
+                    6
+                  ]
+                }
+              ],
+              "line": 10,
+              "isTerminator": 0,
+              "truelist": [
+                5
+              ],
+              "falselist": [
+                6
+              ]
+            },
+            {
+              "flag": 0,
+              "res": "<71, )>",
+              "type": "71",
+              "end": 107,
+              "line": 10,
+              "begin": 107,
+              "info": "界符",
+              "typeName": ")",
+              "lexical": ")",
+              "index": "44",
+              "isTerminator": 1
+            },
+            {
+              "typeName": "M",
+              "next": [
+                {
+                  "type": "-2",
+                  "typeName": "nil",
+                  "lexical": "nil",
+                  "line": 10,
+                  "isTerminator": 1
+                }
+              ],
+              "line": 10,
+              "isTerminator": 0,
+              "instr": 7
+            },
+            {
+              "typeName": "Sb",
+              "next": [
+                {
+                  "flag": 0,
+                  "res": "<74, {>",
+                  "type": "74",
+                  "end": 109,
+                  "line": 10,
+                  "begin": 109,
+                  "info": "界符",
+                  "typeName": "{",
+                  "lexical": "{",
+                  "index": "45",
+                  "isTerminator": 1
+                },
+                {
+                  "typeName": "S",
+                  "next": [
+                    {
+                      "typeName": "Sa",
+                      "next": [
+                        {
+                          "typeName": "A",
+                          "next": [
+                            {
+                              "flag": 0,
+                              "res": "<85, b>",
+                              "type": "85",
+                              "end": 115,
+                              "line": 11,
+                              "begin": 115,
+                              "info": "标识符",
+                              "typeName": "id",
+                              "lexical": "b",
+                              "index": "46",
+                              "isTerminator": 1
+                            },
+                            {
+                              "flag": 0,
+                              "res": "<57, =>",
+                              "type": "57",
+                              "end": 117,
+                              "line": 11,
+                              "begin": 117,
+                              "info": "运算符",
+                              "typeName": "=",
+                              "lexical": "=",
+                              "index": "47",
+                              "isTerminator": 1
+                            },
+                            {
+                              "typeName": "E",
+                              "next": [
+                                {
+                                  "typeName": "Ea",
+                                  "next": [
+                                    {
+                                      "typeName": "R",
+                                      "next": [
+                                        {
+                                          "typeName": "Ra",
+                                          "next": [
+                                            {
+                                              "typeName": "Y",
+                                              "next": [
+                                                {
+                                                  "flag": 0,
+                                                  "res": "<80, 1>",
+                                                  "type": "80",
+                                                  "end": 119,
+                                                  "line": 11,
+                                                  "begin": 119,
+                                                  "info": "常数",
+                                                  "typeName": "num",
+                                                  "lexical": "1",
+                                                  "index": "48",
+                                                  "isTerminator": 1
+                                                }
+                                              ],
+                                              "line": 11,
+                                              "isTerminator": 0,
+                                              "addr": {
+                                                "id": "1",
+                                                "type": {
+                                                  "name": "integer",
+                                                  "width": 4
+                                                },
+                                                "width": 4
+                                              }
+                                            }
+                                          ],
+                                          "line": 11,
+                                          "isTerminator": 0,
+                                          "addr": {
+                                            "id": "1",
+                                            "type": {
+                                              "name": "integer",
+                                              "width": 4
+                                            },
+                                            "width": 4
+                                          }
+                                        }
+                                      ],
+                                      "line": 11,
+                                      "isTerminator": 0,
+                                      "addr": {
+                                        "id": "1",
+                                        "type": {
+                                          "name": "integer",
+                                          "width": 4
+                                        },
+                                        "width": 4
+                                      }
+                                    }
+                                  ],
+                                  "line": 11,
+                                  "isTerminator": 0,
+                                  "addr": {
+                                    "id": "1",
+                                    "type": {
+                                      "name": "integer",
+                                      "width": 4
+                                    },
+                                    "width": 4
+                                  }
+                                }
+                              ],
+                              "line": 11,
+                              "isTerminator": 0,
+                              "addr": {
+                                "id": "1",
+                                "type": {
+                                  "name": "integer",
+                                  "width": 4
+                                },
+                                "width": 4
+                              }
+                            }
+                          ],
+                          "line": 11,
+                          "isTerminator": 0
+                        },
+                        {
+                          "flag": 0,
+                          "res": "<76, ;>",
+                          "type": "76",
+                          "end": 120,
+                          "line": 11,
+                          "begin": 120,
+                          "info": "界符",
+                          "typeName": ";",
+                          "lexical": ";",
+                          "index": "49",
+                          "isTerminator": 1
+                        }
+                      ],
+                      "line": 11,
+                      "isTerminator": 0,
+                      "nextlist": []
+                    }
+                  ],
+                  "line": 11,
+                  "isTerminator": 0,
+                  "nextlist": []
+                },
+                {
+                  "flag": 0,
+                  "res": "<75, }>",
+                  "type": "75",
+                  "end": 122,
+                  "line": 12,
+                  "begin": 122,
+                  "info": "界符",
+                  "typeName": "}",
+                  "lexical": "}",
+                  "index": "50",
+                  "isTerminator": 1
+                }
+              ],
+              "line": 10,
+              "isTerminator": 0,
+              "nextlist": []
+            },
+            {
+              "typeName": "N",
+              "next": [
+                {
+                  "type": "-2",
+                  "typeName": "nil",
+                  "lexical": "nil",
+                  "line": 13,
+                  "isTerminator": 1
+                }
+              ],
+              "line": 13,
+              "isTerminator": 0,
+              "nextlist": [
+                8
+              ]
+            },
+            {
+              "flag": 0,
+              "res": "<4, else>",
+              "type": "4",
+              "end": 127,
+              "line": 13,
+              "begin": 124,
+              "info": "关键字",
+              "typeName": "else",
+              "lexical": "else",
+              "index": "51",
+              "isTerminator": 1
+            },
+            {
+              "typeName": "M",
+              "next": [
+                {
+                  "type": "-2",
+                  "typeName": "nil",
+                  "lexical": "nil",
+                  "line": 13,
+                  "isTerminator": 1
+                }
+              ],
+              "line": 13,
+              "isTerminator": 0,
+              "instr": 9
+            },
+            {
+              "typeName": "Sb",
+              "next": [
+                {
+                  "flag": 0,
+                  "res": "<74, {>",
+                  "type": "74",
+                  "end": 129,
+                  "line": 13,
+                  "begin": 129,
+                  "info": "界符",
+                  "typeName": "{",
+                  "lexical": "{",
+                  "index": "52",
+                  "isTerminator": 1
+                },
+                {
+                  "typeName": "S",
+                  "next": [
+                    {
+                      "typeName": "Sa",
+                      "next": [
+                        {
+                          "typeName": "A",
+                          "next": [
+                            {
+                              "flag": 0,
+                              "res": "<85, b>",
+                              "type": "85",
+                              "end": 135,
+                              "line": 14,
+                              "begin": 135,
+                              "info": "标识符",
+                              "typeName": "id",
+                              "lexical": "b",
+                              "index": "53",
+                              "isTerminator": 1
+                            },
+                            {
+                              "flag": 0,
+                              "res": "<57, =>",
+                              "type": "57",
+                              "end": 137,
+                              "line": 14,
+                              "begin": 137,
+                              "info": "运算符",
+                              "typeName": "=",
+                              "lexical": "=",
+                              "index": "54",
+                              "isTerminator": 1
+                            },
+                            {
+                              "typeName": "E",
+                              "next": [
+                                {
+                                  "typeName": "Ea",
+                                  "next": [
+                                    {
+                                      "typeName": "R",
+                                      "next": [
+                                        {
+                                          "typeName": "Ra",
+                                          "next": [
+                                            {
+                                              "typeName": "Y",
+                                              "next": [
+                                                {
+                                                  "flag": 0,
+                                                  "res": "<38, ->",
+                                                  "type": "38",
+                                                  "end": 139,
+                                                  "line": 14,
+                                                  "begin": 139,
+                                                  "info": "运算符",
+                                                  "typeName": "-",
+                                                  "lexical": "-",
+                                                  "index": "55",
+                                                  "isTerminator": 1
+                                                },
+                                                {
+                                                  "typeName": "Y",
+                                                  "next": [
+                                                    {
+                                                      "flag": 0,
+                                                      "res": "<80, 1>",
+                                                      "type": "80",
+                                                      "end": 140,
+                                                      "line": 14,
+                                                      "begin": 140,
+                                                      "info": "常数",
+                                                      "typeName": "num",
+                                                      "lexical": "1",
+                                                      "index": "56",
+                                                      "isTerminator": 1
+                                                    }
+                                                  ],
+                                                  "line": 14,
+                                                  "isTerminator": 0,
+                                                  "addr": {
+                                                    "id": "1",
+                                                    "type": {
+                                                      "name": "integer",
+                                                      "width": 4
+                                                    },
+                                                    "width": 4
+                                                  }
+                                                }
+                                              ],
+                                              "line": 14,
+                                              "isTerminator": 0,
+                                              "addr": {
+                                                "id": "t_5",
+                                                "type": {
+                                                  "name": "integer",
+                                                  "width": 4
+                                                },
+                                                "width": 4,
+                                                "offset": 28
+                                              }
+                                            }
+                                          ],
+                                          "line": 14,
+                                          "isTerminator": 0,
+                                          "addr": {
+                                            "id": "t_5",
+                                            "type": {
+                                              "name": "integer",
+                                              "width": 4
+                                            },
+                                            "width": 4,
+                                            "offset": 28
+                                          }
+                                        }
+                                      ],
+                                      "line": 14,
+                                      "isTerminator": 0,
+                                      "addr": {
+                                        "id": "t_5",
+                                        "type": {
+                                          "name": "integer",
+                                          "width": 4
+                                        },
+                                        "width": 4,
+                                        "offset": 28
+                                      }
+                                    }
+                                  ],
+                                  "line": 14,
+                                  "isTerminator": 0,
+                                  "addr": {
+                                    "id": "t_5",
+                                    "type": {
+                                      "name": "integer",
+                                      "width": 4
+                                    },
+                                    "width": 4,
+                                    "offset": 28
+                                  }
+                                }
+                              ],
+                              "line": 14,
+                              "isTerminator": 0,
+                              "addr": {
+                                "id": "t_5",
+                                "type": {
+                                  "name": "integer",
+                                  "width": 4
+                                },
+                                "width": 4,
+                                "offset": 28
+                              }
+                            }
+                          ],
+                          "line": 14,
+                          "isTerminator": 0
+                        },
+                        {
+                          "flag": 0,
+                          "res": "<76, ;>",
+                          "type": "76",
+                          "end": 141,
+                          "line": 14,
+                          "begin": 141,
+                          "info": "界符",
+                          "typeName": ";",
+                          "lexical": ";",
+                          "index": "57",
+                          "isTerminator": 1
+                        }
+                      ],
+                      "line": 14,
+                      "isTerminator": 0,
+                      "nextlist": []
+                    }
+                  ],
+                  "line": 14,
+                  "isTerminator": 0,
+                  "nextlist": []
+                },
+                {
+                  "flag": 0,
+                  "res": "<75, }>",
+                  "type": "75",
+                  "end": 143,
+                  "line": 15,
+                  "begin": 143,
+                  "info": "界符",
+                  "typeName": "}",
+                  "lexical": "}",
+                  "index": "58",
+                  "isTerminator": 1
+                }
+              ],
+              "line": 13,
+              "isTerminator": 0,
+              "nextlist": []
+            }
+          ],
+          "line": 10,
+          "isTerminator": 0,
+          "nextlist": [
+            8
+          ]
         }
       ],
-      "isTerminator": 0
+      "line": 8,
+      "isTerminator": 0,
+      "nextlist": [
+        8
+      ]
     }
   ],
   "line": 1,

@@ -489,11 +489,12 @@ const App = rcc({
                 </div>
             )
 
-            let code_3 = env.code_3.map((code, index) => {
+            let code = env.code_3.map((code, index) => {
                 return (
                     <tr>
                         <td>{index}</td>
-                        <td>{code.slice(2)}</td>
+                        <td>{code.replace(/[0-9]+: /, '')}</td>
+                        <td>{env.code_4[index]}</td>
                     </tr>
                 )
             })
@@ -508,17 +509,30 @@ const App = rcc({
                     </tr>
                 )
             })
+            print('--------')
+            print(this.state.source.split('\n'))
+            print('-----------')
+            let sourceCode = this.state.source.split('\n').map((s, index) => {
+                return (
+                    <tr>
+                        <td>{index}</td>
+                        <td>{s}</td>
+                    </tr>
+                )
+            })
+            print(sourceCode)
             resArr.push(
                 <div className={`part1 ${this.state.shouldExpShow} codediv`}>
                     <table className='pure-table '>
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>三地址码</th>
+                                <th>三地址指令</th>
+                                <th>四元式序列</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {code_3}
+                            {code}
                         </tbody>
                     </table>
                     <table className='pure-table'>
@@ -533,6 +547,17 @@ const App = rcc({
                         </thead>
                         <tbody>
                             {top}
+                        </tbody>
+                    </table>
+                    <table className='pure-table '>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>源码</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {sourceCode}
                         </tbody>
                     </table>
                 </div>

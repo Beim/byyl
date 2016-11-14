@@ -790,7 +790,7 @@
 	                )
 	            ));
 
-	            var code_3 = env.code_3.map(function (code, index) {
+	            var code = env.code_3.map(function (code, index) {
 	                return _react2.default.createElement(
 	                    'tr',
 	                    null,
@@ -802,7 +802,12 @@
 	                    _react2.default.createElement(
 	                        'td',
 	                        null,
-	                        code.slice(2)
+	                        code.replace(/[0-9]+: /, '')
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        env.code_4[index]
 	                    )
 	                );
 	            });
@@ -837,6 +842,26 @@
 	                    )
 	                );
 	            });
+	            print('--------');
+	            print(_this4.state.source.split('\n'));
+	            print('-----------');
+	            var sourceCode = _this4.state.source.split('\n').map(function (s, index) {
+	                return _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        index
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        s
+	                    )
+	                );
+	            });
+	            print(sourceCode);
 	            resArr.push(_react2.default.createElement(
 	                'div',
 	                { className: 'part1 ' + _this4.state.shouldExpShow + ' codediv' },
@@ -853,14 +878,19 @@
 	                            _react2.default.createElement(
 	                                'th',
 	                                null,
-	                                '三地址码'
+	                                '三地址指令'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '四元式序列'
 	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        'tbody',
 	                        null,
-	                        code_3
+	                        code
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -903,6 +933,29 @@
 	                        'tbody',
 	                        null,
 	                        top
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'table',
+	                    { className: 'pure-table ' },
+	                    _react2.default.createElement(
+	                        'thead',
+	                        null,
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement('th', null),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                '源码'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tbody',
+	                        null,
+	                        sourceCode
 	                    )
 	                )
 	            ));
