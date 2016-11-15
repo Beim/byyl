@@ -6,6 +6,10 @@ S -> S M Sa -> S4-267
 S -> Sa -> pass-nextlist-267
 Sa -> A ; -> Sa1-267
 Sa -> return E ; -> Sa5-271
+Sa -> ++ Y ; -> Ra6-244
+Sa -> -- Y ; -> Ra7-244
+Sa -> Y ++ ; -> Ra8-244
+Sa -> Y -- ; -> Ra9-244
 A -> id = E -> A1-244
 A -> L = E -> A2-246
 S -> nil
@@ -15,6 +19,7 @@ Sa -> nil
 Sa -> if ( Bo ) M Sb -> Sa2-267
 Sa -> if ( Bo ) M Sb N else M Sb -> Sa3-267
 Sa -> while M ( Bo ) M Sb -> Sa4-267
+Sa -> do M Sb while M ( Bo ) ; -> Sa7-267
 Sb -> { S } -> Sb1-267
 Sb -> Sa -> pass-nextlist-267
 N -> nil -> N1-267
@@ -56,7 +61,11 @@ L -> L [ E ] -> L2-246
 D -> D Da
 D -> Da
 D -> nil
-Da -> T id ; -> D1-241
+Da -> T idlist = E ; -> Da2-241
+Da -> T idlist ; -> D2-241
+idlist -> idlist , id -> idlist2-241
+idlist -> id -> idlist1-241
+# Da -> T id ; -> D1-241
 Da -> T id FN ( Flist ) { D S } -> Da1-271
 FN -> nil -> nFN1-271
 Flist -> Flist , T id -> Flist1-271
@@ -87,10 +96,10 @@ BM -> BV -> pass-list-264
 BV -> true -> BV1-264
 BV -> false -> BV2-264
 BV -> ( Bo ) -> BV3-264
-M -> nil -> nM1-264
 relop -> < -> relop-264
 relop -> <= -> relop-264
 relop -> == -> relop-264
 relop -> != -> relop-264
 relop -> >= -> relop-264
 relop -> > -> relop-264
+M -> nil -> nM1-264
