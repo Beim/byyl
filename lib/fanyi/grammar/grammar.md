@@ -11,7 +11,15 @@ Sa -> -- Y ; -> Ra7-244
 Sa -> Y ++ ; -> Ra8-244
 Sa -> Y -- ; -> Ra9-244
 A -> id = E -> A1-244
+A -> id += E -> A3-244
+A -> id -= E -> A4-244
+A -> id *= E -> A5-244
+A -> id /= E -> A6-244
 A -> L = E -> A2-246
+A -> L += E -> A7-246
+A -> L -= E -> A8-246
+A -> L *= E -> A9-246
+A -> L /= E -> A10-246
 S -> nil
 Sa -> nil
 
@@ -79,6 +87,7 @@ B -> integer -> B1-240
 B -> float -> B2-240
 B -> short -> B3-240
 B -> char -> B4-240
+B -> void -> B5-240
 
 C -> nil -> nC1-240
 C -> [ num ] C -> C2-240
