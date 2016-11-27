@@ -489,6 +489,15 @@ const App = rcc({
                 </div>
             )
 
+            let code_origin = env.code_3_origin.map((code, index) => {
+                return (
+                    <tr>
+                        <td>{index}</td>
+                        <td>{code.replace(/[0-9]+: /, '')}</td>
+                        <td>{env.code_4_origin[index]}</td>
+                    </tr>
+                )
+            })
             let code = env.code_3.map((code, index) => {
                 return (
                     <tr>
@@ -532,6 +541,18 @@ const App = rcc({
                             </tr>
                         </thead>
                         <tbody>
+                            {code_origin}
+                        </tbody>
+                    </table>
+                    <table className='pure-table '>
+                        <thead>
+                            <tr>
+                                <th>优化后</th>
+                                <th>三地址指令</th>
+                                <th>四元式序列</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             {code}
                         </tbody>
                     </table>
@@ -549,6 +570,10 @@ const App = rcc({
                             {top}
                         </tbody>
                     </table>
+                </div>
+            )
+
+            /*
                     <table className='pure-table '>
                         <thead>
                             <tr>
@@ -560,8 +585,7 @@ const App = rcc({
                             {sourceCode}
                         </tbody>
                     </table>
-                </div>
-            )
+            */
 
 
         })

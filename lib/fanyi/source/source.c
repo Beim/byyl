@@ -18,6 +18,7 @@ a = 3;
 a = 4;
 */
 
+/*
 int a,b,c,d;
 a = b + c;
 a = b + c;
@@ -27,6 +28,12 @@ if (a > 0) {
 else {
     d = 10;
 }
+*/
+int a,b,c;
+int[1][2] arr;
+int func(){}
+// a = func();
+arr[1][1] = func();
 /*
 int a,b,c,d;
 a = b + c;
