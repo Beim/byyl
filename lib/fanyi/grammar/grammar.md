@@ -6,10 +6,14 @@ S -> S M Sa -> S4-267
 S -> Sa -> pass-nextlist-267
 Sa -> A ; -> Sa1-267
 Sa -> return E ; -> Sa5-271
-Sa -> ++ Y ; -> Ra6-244
-Sa -> -- Y ; -> Ra7-244
-Sa -> Y ++ ; -> Ra8-244
-Sa -> Y -- ; -> Ra9-244
+## Sa -> ++ Y ; -> Ra6-244
+## Sa -> -- Y ; -> Ra7-244
+## Sa -> Y ++ ; -> Ra8-244
+## Sa -> Y -- ; -> Ra9-244
+A -> ++ Y -> Ra10-244
+A -> -- Y -> Ra11-244
+A -> Y ++ -> Ra12-244
+A -> Y -- -> Ra13-244
 A -> id = E -> A1-244
 A -> id += E -> A3-244
 A -> id -= E -> A4-244
@@ -28,6 +32,9 @@ Sa -> if ( Bo ) M Sb -> Sa2-267
 Sa -> if ( Bo ) M Sb N else M Sb -> Sa3-267
 Sa -> while M ( Bo ) M Sb -> Sa4-267
 Sa -> do M Sb while M ( Bo ) ; -> Sa7-267
+Sa -> for ( Alist ; M Bo ; M Alist N ) M Sb -> Sa8-267
+Alist -> Alist , A -> Alist1-267
+Alist -> A -> Alist2-267
 Sb -> { S } -> Sb1-267
 Sb -> Sa -> pass-nextlist-267
 N -> nil -> N1-267

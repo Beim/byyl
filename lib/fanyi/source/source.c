@@ -30,10 +30,20 @@ else {
 }
 */
 int a,b,c;
-int[1][2] arr;
-int func(){}
-// a = func();
-arr[1][1] = func();
+for (a = 2222; a < 10; ++a, a++, --a, a--) {
+    a = 4444;
+}
+a = 6666;
+/*
+while (a < 1) {
+    a = 222;
+}
+*/
+/*
+do {
+    a = 222;
+} while (a < 1);
+*/
 /*
 int a,b,c,d;
 a = b + c;

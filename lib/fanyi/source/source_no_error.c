@@ -22,6 +22,9 @@ int func1() {
             a--;
         }
     }
+    for (a = 10, b = 20; a < 20 && b < 30; a++, b++) {
+        a = a + b;
+    }
     return a;
 }
 
